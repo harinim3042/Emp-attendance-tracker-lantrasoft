@@ -1314,9 +1314,7 @@
   height: 200px;
   text-align: center;
 }
-.border-radius-hr-table {
-  border-radius: 1.5em;
-}
+
 .chart-bg {
   background: rgb(201, 214, 255);
   background: -webkit-linear-gradient(to right, #e2e2e2, #c9d6ff);
@@ -1326,14 +1324,16 @@
 }
 
 .chart-align div {
-  width: 50vh;
+  width: 60vh;
   height: 100%;
+  display: flex;
+  justify-content: center;
 }
 .chart-align {
   display: flex;
-  align-content: flex-start;
+  align-content: center;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   flex-direction: row;
   flex-wrap: wrap;
 }
@@ -1349,4 +1349,16 @@
     rgb(52, 138, 199, 0.89),
     rgb(116, 116, 191, 0.7)
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.navbar-light .navbar-brand {
+  color: rgb(255 255 255);
+}
+.navbar-light .navbar-toggler-icon {
+  background-image: url(https://icon-library.com/images/3-bar-menu-icon/3-bar-menu-icon-6.jpg);
+}
+.offcanvas-header{
+  
+   background-color:  BLACK;
+    color:  SEASHELL;
+
 }
