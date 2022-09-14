@@ -1355,6 +1355,7 @@
 }
 .navbar-light .navbar-toggler-icon {
   background-image: url(https://icon-library.com/images/3-bar-menu-icon/3-bar-menu-icon-6.jpg);
+
 }
 .offcanvas-header,.offcanvas-body {
   
@@ -1389,4 +1390,13 @@
   border-image-repeat: initial;
   border-radius: 4em;
   opacity: revert;
+}
+
+a:hover {
+  color: #000000;
+}
+
+a {
+  color: #dc3545;
+  /* text-decoration: underline; */
 }

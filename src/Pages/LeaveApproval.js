@@ -5,13 +5,15 @@ import Button from 'react-bootstrap/Button';
 import EMP from '../Components/empData.json';
 import Table from 'react-bootstrap/Table';
 import Card from 'react-bootstrap/Card';
+
 export default function LeaveApproval() {
+
   return (
     <div>
       <div>
-        <h1 className="form-center">EMPLOYEE LEAVE APPROVAL</h1>
         <div className="px-5 pt-2">
           <Card body>
+            <h1 className="form-center">EMPLOYEE LEAVE APPROVAL</h1>
             <Table
               responsive
               hover
@@ -49,16 +51,16 @@ export default function LeaveApproval() {
                       <Form.Check
                         inline
                         label="APPROVED"
-                        name="group1"
                         type="radio"
-                        id="approved"
+                        id={item.id + "_approved"}
+                        name={item.id}
                       />
                       <Form.Check
                         inline
                         label="NOT APPROVED"
-                        name="group1"
                         type="radio"
-                        id="not_approved"
+                        id={item.id + "_not_approved"}
+                        name={item.id}
                       />
                     </td>
                   </tr>
