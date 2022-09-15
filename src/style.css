@@ -1323,8 +1323,8 @@
   border-radius: 1.5em;
 }
 
-.chart-align div {
-  width: 60vh;
+.chart-align canvas{
+  width: 40vh;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -1360,7 +1360,7 @@
 .offcanvas-header,.offcanvas-body {
   
    background-color:  #212529!important;
-    color:  SEASHELL;
+    color:  SEASHELL !important;
 
 }
 
@@ -1393,10 +1393,22 @@
 }
 
 a:hover {
-  color: #000000;
+  color: rebeccapurple;
 }
 
 a {
-  color: #dc3545;
-  /* text-decoration: underline; */
+  color:SEASHELL !important;
+  text-decoration: none;
+  padding-top: 6em;
+}
+.navbar-nav {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+  align-items: flex-end;
+}
+.flex-shrink-1 {
+  flex-shrink: 1!important;
 }

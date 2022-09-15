@@ -2,20 +2,20 @@ import React from 'react';
 import { Line } from 'react-chartjs-2';
 export default function LineChart() {
   const data = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    labels: ['Mon','Tue','Wed','Thurs','Fri'],
     datasets: [
       {
-        label: 'First dataset',
+        label: 'Time-in',
         data: [33, 53, 85, 41, 44, 65],
         fill: false,
        
-        borderColor: 'rgba(75,192,192,1)',
+        borderColor: 'rgba(54,162,235,1)',
       },
       {
-        label: 'Second dataset',
+        label: 'Time-out',
         data: [33, 25, 35, 51, 54, 76],
         fill: false,
-        borderColor: '#742774',
+        borderColor: 'rgba(232,99,132,1)',
       },
     ],
   };
@@ -23,7 +23,7 @@ export default function LineChart() {
     plugins: {
       
       title: {
-        display: true,
+        display: false,
         text: 'Time-in/out',
         color: 'blue',
         font: {
