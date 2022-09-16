@@ -4,7 +4,7 @@ import Dashboard from './Pages/Dashboard';
 import HRDashboard from './Pages/HRDashboard';
 import LeaveApplication from './Pages/LeaveApplication';
 import LeaveApproval from './Pages/LeaveApproval';
-import Login from './Components/Login';
+import Login from './Pages/Login';
 
 export default function App() {
   return (
@@ -12,7 +12,7 @@ export default function App() {
       <>
         <BrowserRouter>
           <Routes>
-            <Route path="/login" element={<Login />} />
+            <Route path="/Login" element={<Login />} />
             <Route path="/" element={<Dashboard />} />
             <Route path="/HRDashboard" element={<HRDashboard />} />
             <Route path="/LeaveApplication" element={<LeaveApplication />} />

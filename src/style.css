@@ -1323,7 +1323,7 @@
   border-radius: 1.5em;
 }
 
-.chart-align canvas{
+.chart-align canvas {
   width: 40vh;
   height: 100%;
   display: flex;
@@ -1355,51 +1355,35 @@
 }
 .navbar-light .navbar-toggler-icon {
   background-image: url(https://icon-library.com/images/3-bar-menu-icon/3-bar-menu-icon-6.jpg);
-
-}
-.offcanvas-header,.offcanvas-body {
-  
-   background-color:  #212529!important;
-    color:  SEASHELL !important;
-
 }
 
+.offcanvas {
+  width: 11rem;
+
+  background-color: #212529 !important;
+  color: SEASHELL !important;
+}
 .btn-close {
   width: 42px;
   height: 42px;
   padding: 1.5rem;
-  /* color: #000; */
-  background: transparent url(https://www.freeiconspng.com/thumbs/close-icon/close-icon-20.jpg) center/1em auto no-repeat;
+  background: transparent
+    url(https://www.freeiconspng.com/thumbs/close-icon/close-icon-20.jpg)
+    center/1em auto no-repeat;
   border: 0;
-  border-top-color: initial;
-  border-top-style: initial;
-  border-top-width: 0px;
-  border-right-color: initial;
-  border-right-style: initial;
-  border-right-width: 0px;
-  border-bottom-color: initial;
-  border-bottom-style: initial;
-  border-bottom-width: 0px;
-  border-left-color: initial;
-  border-left-style: initial;
-  border-left-width: 0px;
-  border-image-source: initial;
-  border-image-slice: initial;
-  border-image-width: initial;
-  border-image-outset: initial;
-  border-image-repeat: initial;
   border-radius: 4em;
   opacity: revert;
 }
-
-a:hover {
-  color: rebeccapurple;
-}
-
 a {
-  color:SEASHELL !important;
+  color: SEASHELL !important;
   text-decoration: none;
   padding-top: 6em;
+}
+
+ a:hover {
+  color: thistle !important;
+  text-decoration: none;
+
 }
 .navbar-nav {
   display: flex;
@@ -1407,8 +1391,9 @@ a {
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
-  align-items: flex-end;
+  align-items: flex-start;
 }
 .flex-shrink-1 {
-  flex-shrink: 1!important;
+  flex-shrink: 1 !important;
 }
+
