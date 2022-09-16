@@ -27,9 +27,9 @@ function OffcanvasExample() {
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
                   <Link to="/">Home</Link>
-                  <Link to="LeaveApplication">Leave Application</Link>
-                  <Link to="Login">Logout</Link>
-                  <Link to="LeaveApproval">Leave</Link>
+                  <Link to="/LeaveApplication">Leave Application</Link>
+                  <Link to="/Login">Logout</Link>
+                  <Link to="/LeaveApproval">Leave</Link>
                 </Nav>
                
               </Offcanvas.Body>
