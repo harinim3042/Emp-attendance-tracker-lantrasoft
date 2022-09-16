@@ -2,7 +2,7 @@ import React from 'react';
 import '../style.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import EMP from '../Components/empData.json';
+import EMP from '../Assets/empData.json';
 import Table from 'react-bootstrap/Table';
 import Card from 'react-bootstrap/Card';
 
