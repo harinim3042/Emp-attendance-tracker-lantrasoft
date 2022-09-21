@@ -1,0 +1,7 @@
+
+     <Link to="/">Home</Link>
+                  <Link to="/LeaveApplication">Leave Application</Link>
+                  <Link to="/Login">Logout</Link>
+                  <Link to="/LeaveApproval">Leave</Link>
+<img src=" https://raw.githubusercontent.com/harinim3042/images/main/logo.png" height="26px"/>
+                  #212529

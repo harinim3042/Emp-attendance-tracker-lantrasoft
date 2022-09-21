@@ -1350,50 +1350,46 @@
     rgb(116, 116, 191, 0.7)
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
-.navbar-light .navbar-brand {
-  color: rgb(255 255 255);
-}
-.navbar-light .navbar-toggler-icon {
-  background-image: url(https://icon-library.com/images/3-bar-menu-icon/3-bar-menu-icon-6.jpg);
-}
-
-.offcanvas {
-  width: 11rem;
-
-  background-color: #212529 !important;
-  color: SEASHELL !important;
-}
-.btn-close {
-  width: 42px;
-  height: 42px;
-  padding: 1.5rem;
-  background: transparent
-    url(https://www.freeiconspng.com/thumbs/close-icon/close-icon-20.jpg)
-    center/1em auto no-repeat;
-  border: 0;
-  border-radius: 4em;
-  opacity: revert;
-}
-a {
-  color: SEASHELL !important;
-  text-decoration: none;
-  padding-top: 6em;
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+  color: #fff;
+  background-color: #212529;
+  border-color: #212529;
 }
 
- a:hover {
-  color: thistle !important;
-  text-decoration: none;
-
+.nav-item,
+.nav-tabs .nav-link {
+  margin-bottom: -1px;
+  background: 0 0;
+  border: 1px solid transparent;
+  border-top-left-radius: 0rem;
+  border-top-right-radius: 0rem;
+  border-color: #212529;
+  color: #fff;
 }
-.navbar-nav {
+
+.nav-bg {
+  background-color: #212529;
+}
+.title {
+  font-size: 1.5rem;
+  color: #ffffff;
+  transition: ease-in-out;
   display: flex;
-  flex-direction: column;
-  padding-left: 0;
-  margin-bottom: 0;
-  list-style: none;
-  align-items: flex-start;
+  flex-wrap: nowrap;
+  align-content: space-around;
+  justify-content: center;
+  flex-direction: row;
+  align-items: flex-end;
 }
-.flex-shrink-1 {
-  flex-shrink: 1 !important;
+.nav-link {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out;
 }
-
+.nav-link:hover {
+  color: #6c757d;
+}
