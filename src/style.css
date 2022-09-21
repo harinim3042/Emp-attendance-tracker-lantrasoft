@@ -1378,7 +1378,7 @@
   display: flex;
   flex-wrap: nowrap;
   align-content: space-around;
-  justify-content: center;
+  justify-content: left;
   flex-direction: row;
   align-items: flex-end;
 }
@@ -1392,4 +1392,5 @@
 }
 .nav-link:hover {
   color: #6c757d;
+  border: 1px solid;
 }
