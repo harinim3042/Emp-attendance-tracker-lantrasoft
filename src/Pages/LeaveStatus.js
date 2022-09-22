@@ -27,6 +27,7 @@ export default function LeaveStatus() {
         Time_In: '9:00 AM',
         Time_Out: '6:00 PM',
         Leave_type: 'Half-day',
+        Leave_category: 'Personal Leave',
         Leave_from: '19/08/2022',
         Leave_to: '19/08/2022',
         Leave_reason: 'Family function',
@@ -51,7 +52,7 @@ export default function LeaveStatus() {
       <div>
         <div className="px-5 pt-2">
           <Card body>
-            <h1 className="form-center">EMPLOYEE LEAVE APPROVAL</h1>
+            <h1 className="form-center">EMPLOYEE LEAVE STATUS</h1>
             <Table
               responsive
               hover
@@ -66,6 +67,7 @@ export default function LeaveStatus() {
                   <th>EMPLOYEE NAME</th>
                   <th>EMPLOYEE POSITION</th>
                   <th>LEAVE TYPE</th>
+                  <th>LEAVE CATEGORY</th>
                   <th>FROM DATE</th>
                   <th>TO DATE</th>
                   <th>REASON</th>
@@ -78,10 +80,10 @@ export default function LeaveStatus() {
                     <td>{x.EmpName}</td>
                     <td> {x.EmpPosition.Position} </td>
                     <td> {x.Leave_type} </td>
+                    <td> {x.Leave_category} </td>
                     <td> {x.Leave_from} </td>
                     <td> {x.Leave_to} </td>
                     <td> {x.Leave_reason}</td>
-
                     <td></td>
                   </tr>
                 ))}

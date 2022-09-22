@@ -27,6 +27,7 @@ export default function LeaveApproval() {
         Time_In: '9:00 AM',
         Time_Out: '6:00 PM',
         Leave_type: 'Half-day',
+        Leave_category: 'Personal Leave',
         Leave_from: '19/08/2022',
         Leave_to: '19/08/2022',
         Leave_reason: 'Family function',
@@ -66,6 +67,7 @@ export default function LeaveApproval() {
                   <th>EMPLOYEE NAME</th>
                   <th>EMPLOYEE POSITION</th>
                   <th>LEAVE TYPE</th>
+                  <th>LEAVE CATEGORY</th>
                   <th>FROM DATE</th>
                   <th>TO DATE</th>
                   <th>REASON</th>
@@ -78,6 +80,7 @@ export default function LeaveApproval() {
                     <td>{x.EmpName}</td>
                     <td> {x.EmpPosition.Position} </td>
                     <td> {x.Leave_type} </td>
+                    <td> {x.Leave_category} </td>
                     <td> {x.Leave_from} </td>
                     <td> {x.Leave_to} </td>
                     <td> {x.Leave_reason}</td>
