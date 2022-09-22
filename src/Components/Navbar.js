@@ -21,7 +21,7 @@ function NavBar() {
               <Nav.Link href="/LeaveApplication">LEAVE APPLICATION</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="/LeaveApplication">LEAVE STATUS</Nav.Link>
+              <Nav.Link href="/LeaveStatus">LEAVE STATUS</Nav.Link>
             </Nav.Item>
             <Nav.Item>
               <Nav.Link href="/LeaveApproval">LEAVE APPROVAL</Nav.Link>

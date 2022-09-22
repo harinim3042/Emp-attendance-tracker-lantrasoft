@@ -8,6 +8,7 @@ export default function Dashboard() {
   return (
     <>
       <SideBarNavigation />
+      <div className="chart-bg px-1 mx-13 py-6 my-5"></div>
       <div className="chart-align my-9">
         <div className="chart-bg px-5 mx-5 py-6 my-5">
           <DoughnutChart />

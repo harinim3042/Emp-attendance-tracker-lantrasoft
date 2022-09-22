@@ -9,7 +9,7 @@ import SideBarNavigation from '../Components/Navbar.js';
 
 const baseURL = '/Assets/empfullDetails.json';
 
-export default function LeaveApproval() {
+export default function LeaveStatus() {
   const [item, setItem] = useState([]);
 
   React.useEffect(() => {
@@ -47,7 +47,7 @@ export default function LeaveApproval() {
   // if (!item) return null;
   return (
     <div>
-       <SideBarNavigation />
+      <SideBarNavigation />
       <div>
         <div className="px-5 pt-2">
           <Card body>
@@ -82,33 +82,11 @@ export default function LeaveApproval() {
                     <td> {x.Leave_to} </td>
                     <td> {x.Leave_reason}</td>
 
-                    <td>
-                 
-                      <Form.Check
-                        inline
-                        label="APPROVED"
-                        type="radio"
-                        id={x.LeaveId + '_approved'}
-                        name={x.LeaveId}
-                        value="boolean"
-                      />
-                      <Form.Check
-                        inline
-                        label="NOT APPROVED"
-                        type="radio"
-                        id={x.LeaveId + '_not_approved'}
-                        name={x.LeaveId}
-                      />
-                    </td>
+                    <td></td>
                   </tr>
                 ))}
               </tbody>
             </Table>
-            <div className="py-1 pe-5 ps-5 form-center">
-              <Button variant="dark" type="submit">
-                Submit
-              </Button>
-            </div>
           </Card>
         </div>
       </div>
