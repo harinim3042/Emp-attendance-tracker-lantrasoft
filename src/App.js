@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Dashboard from './Pages/Dashboard';
-import HRDashboard from './Pages/HRDashboard';
 import LeaveApplication from './Pages/LeaveApplication';
 import LeaveApproval from './Pages/LeaveApproval';
 import LeaveStatus from './Pages/LeaveStatus';
@@ -15,7 +14,6 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/Dashboard" element={<Dashboard />} />
-           
             <Route path="/LeaveApplication" element={<LeaveApplication />} />
             <Route path="/LeaveApproval" element={<LeaveApproval />} />
             <Route path="/LeaveStatus" element={<LeaveStatus />} />
