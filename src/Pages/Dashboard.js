@@ -4,16 +4,16 @@ import DoughnutChart from '../Components/Donught.js';
 import LineChart from '../Components/Linechart.js';
 import BarChart from '../Components/barChart';
 import SideBarNavigation from '../Components/Navbar.js';
-<script src="../Components/DisplayClock.js"></script>;
+
 export default function Dashboard() {
   return (
     <>
       <SideBarNavigation />
       <div
         className="chart-bg px-1 mx-13 py-6 my-5"
-        onload={display_clockTime()}
+      
       >
-        <span id="clockTime" class="clockTime_font"></span>
+  
       </div>
       <div className="chart-align my-9">
         <div className="chart-bg px-5 mx-3 py-6 my-5">

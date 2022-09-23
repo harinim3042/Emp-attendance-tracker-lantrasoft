@@ -1,5 +1,7 @@
-
-function display_clockTime() {
+import React from 'react';
+export default function display_clockTime() {
+  
+  return({
   var x = new Date()
   var ampm = x.getHours( ) >= 12 ? ' PM' : ' AM';
   hours = x.getHours( ) % 12;
@@ -21,14 +23,11 @@ function display_clockTime() {
   var x1=month + "/" + dt + "/" + x.getFullYear(); 
   x1 = x1 + "  " +  hours + ":" +  minutes + ":" +  seconds + " " + ampm;
  document.getElementById('clockTime').innerHTML = x1;
-  display_c();
-   }
-   function display_c(){
-  var refresh=1000; // Refresh rate in milli seconds
-  mytime=setTimeout('display_clockTime()',refresh)
-  }
-  display_c()
 
+  display_c();
+   } );
+   display_c()
+  };
 
 
 
