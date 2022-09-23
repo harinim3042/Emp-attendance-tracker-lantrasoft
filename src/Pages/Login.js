@@ -55,7 +55,7 @@ export default function Login() {
     );
   const renderForm = (
     <div className="chart-align my-10">
-      <div className="container-bg pt-8 py-2 pb-5">
+      <div className="chart-bg pt-8 py-1 pb-5">
         <form responsive className="mx-13" onSubmit={handleSubmit}>
           <h1 className="form-center"> LOGIN </h1>
           <h1 className="form-center ms-4">
