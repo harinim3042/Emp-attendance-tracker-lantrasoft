@@ -15,7 +15,7 @@ function NavBar() {
      
           <Nav className="justify-content-end mt-n5 mb-1 me-2">
             <Nav.Item>
-              <Nav.Link href="/">HOME</Nav.Link>
+              <Nav.Link href="/Dashboard">HOME</Nav.Link>
             </Nav.Item>
             <Nav.Item>
               <Nav.Link href="/LeaveApplication">LEAVE APPLICATION</Nav.Link>
@@ -27,7 +27,7 @@ function NavBar() {
               <Nav.Link href="/LeaveApproval">LEAVE APPROVAL</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="/Login">LOGOUT</Nav.Link>
+              <Nav.Link href="/">LOGOUT</Nav.Link>
             </Nav.Item>
           </Nav>
         </div>
