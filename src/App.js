@@ -15,7 +15,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/Dashboard" element={<Dashboard />} />
-            <Route path="/HRDashboard" element={<HRDashboard />} />
+           
             <Route path="/LeaveApplication" element={<LeaveApplication />} />
             <Route path="/LeaveApproval" element={<LeaveApproval />} />
             <Route path="/LeaveStatus" element={<LeaveStatus />} />
