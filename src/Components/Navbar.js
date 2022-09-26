@@ -9,12 +9,27 @@ function NavBar() {
       role: ['HR'],
     },
     {
-      label: 'HOME 2',
-      route: '/Dashboard',
-      role: ['HR', 'STUDENT'],
+      label: 'LEAVE APPLICATION',
+      route: '/LeaveApplication',
+      role: [ 'EMPLOYEE'],
+    },
+    {
+      label: 'LEAVE STATUS',
+      route: '/LeaveStatus',
+      role: [ 'EMPLOYEE'],
+    },
+    {
+      label: 'LEAVE APPROVAL',
+      route: '/LeaveApproval',
+      role: ['HR'],
+    },
+    {
+      label: 'LOGOUT',
+      route: '/',
+      role: ['HR', 'EMPLOYEE'],
     },
   ];
-  let userRole = 'STUDENT';
+  let userRole = 'EMPLOYEE';
 
   navMenus = navMenus.filter((m) => m.role.includes(userRole));
 
