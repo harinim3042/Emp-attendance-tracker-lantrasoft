@@ -1,0 +1,20 @@
+[
+  {
+    "EmpId": 1,
+    "LeaveId": 1,
+    "Email": "harinim@123.com",
+    "Password": "Harini123",
+    "EmpName": "Harini M",
+    "EmpPosition": { "Role": "Employee", "Position": "Front-end Dev" },
+    "Date": "18/08/2022",
+    "Working_hours": 8,
+    "Leisure_hours": 1,
+    "Time_In": "29:00 AM",
+    "Time_Out": "6:00 PM",
+    "Leave_type": "Half-day",
+    "Leave_from": "19/08/2022",
+    "Leave_to": "19/08/2022",
+    "Leave_reason": "Family function",
+    "Leave_status": true
+  }
+]
