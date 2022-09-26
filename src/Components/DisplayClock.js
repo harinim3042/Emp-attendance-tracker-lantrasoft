@@ -12,7 +12,8 @@ function DisplayClock() {
           day: 'numeric',
           month: 'short',
           year: 'numeric',
-        })}<br />
+        })}
+        <br />
         {dateState.toLocaleString('en-US', {
           hour: 'numeric',
           minute: 'numeric',

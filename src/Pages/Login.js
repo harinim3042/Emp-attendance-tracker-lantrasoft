@@ -13,10 +13,12 @@ export default function Login() {
     {
       username: 'user1',
       password: 'pass1',
+      role: ['HR'],
     },
     {
       username: 'user2',
       password: 'pass2',
+      role: [ 'EMPLOYEE'],
     },
   ];
 
