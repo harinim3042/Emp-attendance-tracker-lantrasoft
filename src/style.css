@@ -1332,7 +1332,7 @@
 .chart-align {
   display: flex;
   align-content: center;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   flex-direction: row;
   flex-wrap: wrap;

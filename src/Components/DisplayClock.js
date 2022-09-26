@@ -1,33 +1,26 @@
-import React from 'react';
-export default function display_clockTime() {
-  
-  return({
-  var x = new Date()
-  var ampm = x.getHours( ) >= 12 ? ' PM' : ' AM';
-  hours = x.getHours( ) % 12;
-  hours = hours ? hours : 12;
-  hours=hours.toString().length==1? 0+hours.toString() : hours;
-  
-  var minutes=x.getMinutes().toString()
-  minutes=minutes.length==1 ? 0+minutes : minutes;
-  
-  var seconds=x.getSeconds().toString()
-  seconds=seconds.length==1 ? 0+seconds : seconds;
-  
-  var month=(x.getMonth() +1).toString();
-  month=month.length==1 ? 0+month : month;
-  
-  var dt=x.getDate().toString();
-  dt=dt.length==1 ? 0+dt : dt;
-  
-  var x1=month + "/" + dt + "/" + x.getFullYear(); 
-  x1 = x1 + "  " +  hours + ":" +  minutes + ":" +  seconds + " " + ampm;
- document.getElementById('clockTime').innerHTML = x1;
+import React, { useState, useEffect } from 'react';
 
-  display_c();
-   } );
-   display_c()
-  };
+function DisplayClock() {
+  const [dateState, setDateState] = useState(new Date());
+  useEffect(() => {
+    setInterval(() => setDateState(new Date()), 30000);
+  }, []);
+  return (
+    <>
+      <div className=" mt-n1 py-2">
+        {dateState.toLocaleDateString('en-GB', {
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric',
+        })}<br />
+        {dateState.toLocaleString('en-US', {
+          hour: 'numeric',
+          minute: 'numeric',
+          hour12: true,
+        })}
+      </div>
+    </>
+  );
+}
 
-
-
+export default DisplayClock;
