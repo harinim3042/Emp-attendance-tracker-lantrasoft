@@ -43,7 +43,7 @@ export default function LeaveStatus() {
     //   setItem(response.data);
     // });
   }, []);
-  console.log(Array.isArray(item));
+  console.log(setItem);
 
   // if (!item) return null;
   return (

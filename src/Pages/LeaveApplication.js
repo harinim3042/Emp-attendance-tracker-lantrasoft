@@ -7,6 +7,7 @@ import Row from 'react-bootstrap/Row';
 import SideBarNavigation from '../Components/Navbar.js';
 
 export default function LeaveApplication() {
+  
   return (
     <div>
       <SideBarNavigation />

@@ -48,7 +48,7 @@ function NavBar() {
 
         <Nav className="justify-content-end mt-n4 mb-1 me-2">
           {navMenus.map((m) => (
-            <Nav.Item>
+            <Nav.Item key={m.userRole}> 
               <Nav.Link href={m.route}>{m.label}</Nav.Link>
             </Nav.Item>
           ))}
