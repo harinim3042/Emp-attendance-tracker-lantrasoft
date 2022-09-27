@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row';
 import SideBarNavigation from '../Components/Navbar.js';
 
 export default function LeaveApplication() {
-  
+
   return (
     <div>
       <SideBarNavigation />
@@ -94,6 +94,6 @@ export default function LeaveApplication() {
           </Form>
         </div>
       </div>
-    </div>
+    </div> 
   );
 }
