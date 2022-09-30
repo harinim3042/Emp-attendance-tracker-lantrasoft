@@ -3,39 +3,51 @@ import Nav from 'react-bootstrap/Nav';
 
 function NavBar() {
   let navMenus = [
-    {
+    { 
+      menu:'1',
       label: 'HOME',
       route: '/Dashboard',
       role: ['HR'],
     },
     {
+      menu:'2',
       label: 'LEAVE APPLICATION',
       route: '/LeaveApplication',
       role: [ 'EMPLOYEE'],
     },
     {
+      menu:'3',
       label: 'LEAVE STATUS',
       route: '/LeaveStatus',
       role: [ 'EMPLOYEE'],
     },
     {
+      menu:'4',
       label: 'LEAVE APPROVAL',
       route: '/LeaveApproval',
       role: ['HR'],
     },
     {
+      menu:'5',
+      label: 'REPORTS',
+      route: '/Reports',
+      role: ['HR'],
+    },
+    {
+      menu:'6',
       label: 'LOGOUT',
       route: '/',
       role: ['HR', 'EMPLOYEE'],
     },
+
   ];
-  let userRole = 'EMPLOYEE';
+  let userRole = 'HR';
 
   navMenus = navMenus.filter((m) => m.role.includes(userRole));
-
+ 
   return (
     <>
-      <div className=" mt-n1 py-2  nav-bg ">
+      <div className=" mt-n1  nav-bg align-items-center ">
         <div className="title mx-3 pt-2">
           <p>
             <img
@@ -46,9 +58,9 @@ function NavBar() {
           </p>
         </div>
 
-        <Nav className="justify-content-end mt-n4 mb-1 me-2">
+        <Nav className="justify-content-end mt-n7  me-2">
           {navMenus.map((m) => (
-            <Nav.Item key={m.userRole}> 
+            <Nav.Item key={m.menu}> 
               <Nav.Link href={m.route}>{m.label}</Nav.Link>
             </Nav.Item>
           ))}

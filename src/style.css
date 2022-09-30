@@ -2,10 +2,13 @@
   font-family: sans-serif;
   text-align: center;
 }
+.pg-center{
+  margin: 0 auto;
+}
 .m-0 {
   margin: 0 !important;
 }
-
+ 
 .m-1 {
   margin: 0.25rem !important;
 }
@@ -1295,6 +1298,8 @@
 .form-center {
   display: flex;
   justify-content: center;
+  align-items: center;
+  
 }
 
 .container-bg {
@@ -1305,7 +1310,7 @@
   border-radius: 1.5em;
   box-shadow: 3px;
   text-align: left;
-  width: max-content;
+  width: 80vw;
   display: flex;
 }
 
@@ -1323,9 +1328,21 @@
   border-radius: 1.5em;
 }
 
-.chart-align canvas {
-  width: 40vh;
-  height: 100%;
+.line canvas {
+  width: 35vw !important;
+  height: 40vh;
+  display: flex;
+  justify-content: center;
+}
+.bar canvas {
+  width: 35vw !important;
+  height: 40vh;
+  display: flex;
+  justify-content: center;
+}
+.donut canvas{
+  width: 20vw !important;
+  height: 40vh;
   display: flex;
   justify-content: center;
 }

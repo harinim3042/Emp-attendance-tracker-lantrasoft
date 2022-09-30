@@ -11,12 +11,12 @@ export default function LeaveApplication() {
   return (
     <div>
       <SideBarNavigation />
-      <div className=" container-bg pb-5 pt-2 form-center mx-14 my-13 ">
-        <div className=" pt-8 pe-5 ps-5 mx-12">
-          <Form responsive>
+      <div className=" container-bg form-center pg-center mt-5 ">
+        <div className=" pt-6 pe-5 ps-5 mx-12">
+          <Form >
             <h1 className="mb-4 form-center "> LEAVE APPLICATION </h1>
-            <Row className="mb-3 form-center ">
-              <Form.Group as={Col} controlId="EmpId">
+            <Row className="mb-3 form-center " sm={3}>
+              <Form.Group as={Col} controlId="EmpId" >
                 <Form.Label>
                   <b>EMPLOYEE ID</b>
                 </Form.Label>
@@ -41,38 +41,55 @@ export default function LeaveApplication() {
               </Form.Group>
             </Row>
 
-            <Row className="mb-3">
-              <Form.Group as={Col} controlId="Leave-type">
+            <Row className="mb-3" sm={5}>
+              <Form.Group as={Col} controlId="Leave-type" sm={3}>
                 <Form.Label className="mb-2">
                   <b>LEAVE TYPE</b>
                 </Form.Label>
 
                 <Form.Select
                   defaultValue="HALF DAY"
-                  className="px-4 py-1 "
-                  style={{ width: '19vw' }}
+                  className="px-4 py-1  "
+                  style={{ width: '15vw' }}
                 >
                   <option>HALF DAY</option>
                   <option>FULL DAY</option>
                   <option>CONTINOUS DAY</option>
                 </Form.Select>
               </Form.Group>
+              <Form.Group as={Col} controlId="Leave-category" sm={3}>
+                <Form.Label className="mb-2 ">
+                  <b>LEAVE TYPE</b>
+                </Form.Label>
 
-              <Form.Group as={Col} controlId="fromDate">
-                <Form.Label>
+                <Form.Select
+                  defaultValue="PERSONAL LEAVE"
+                  className="px-4 py-1"
+                  style={{ width: '15vw' }}
+                >
+                  <option>PERSONAL LEAVE</option>
+                  <option>SICK LEAVE</option>
+                  <option>LOSS OF PAY</option>
+                </Form.Select>
+              </Form.Group>
+
+           
+            <Form.Group as={Col} controlId="fromDate" sm={3}>
+                <Form.Label className="mb-2 ">
                   <b>FROM DATE</b>
                 </Form.Label>
-                <Form.Control type="date" />
+                <Form.Control type="date"   className="px-4 py-1"/>
               </Form.Group>
 
-              <Form.Group as={Col} controlId="toDate">
-                <Form.Label>
+              <Form.Group as={Col} controlId="toDate" sm={3}>
+                <Form.Label className="mb-2 ">
                   <b>TO DATE</b>
                 </Form.Label>
-                <Form.Control type="date" />
+                <Form.Control type="date" className="px-4 py-1 " />
               </Form.Group>
+              
             </Row>
-            <Row className="mb-3">
+            <Row className="mb-3" sm={3}>
               <Form.Group as={Col} controlId="Reason">
                 <Form.Label>
                   <b>REASON</b>
@@ -81,7 +98,7 @@ export default function LeaveApplication() {
                 <Form.Control
                   as="textarea"
                   placeholder="Specify Reason for leave applied"
-                  style={({ height: '60em' }, { width: '60em' })}
+                  style={({ height: '15vh' }, { width: '70vw' })}
                 />
               </Form.Group>
             </Row>
@@ -94,6 +111,6 @@ export default function LeaveApplication() {
           </Form>
         </div>
       </div>
-    </div> 
+    </div>
   );
 }

@@ -7,41 +7,38 @@ import Table from 'react-bootstrap/Table';
 import Card from 'react-bootstrap/Card';
 import SideBarNavigation from '../Components/Navbar.js';
 
-const baseURL = '/Assets/empfullDetails.json';
+const baseURL = 'http://localhost:4000/empfullDetails';
 
 export default function LeaveApproval() {
   const [item, setItem] = useState([]);
 
   React.useEffect(() => {
-    setItem([
-      {
-        EmpId: 1,
-        LeaveId: 1,
-        Email: 'harinim@123.com',
-        Password: 'Harini123',
-        EmpName: 'Harini M',
-        EmpPosition: { Role: 'Employee', Position: 'Front-end Dev' },
-        Date: '18/08/2022',
-        Working_hours: 8,
-        Leisure_hours: 1,
-        Time_In: '9:00 AM',
-        Time_Out: '6:00 PM',
-        Leave_type: 'Half-day',
-        Leave_category: 'Personal Leave',
-        Leave_from: '19/08/2022',
-        Leave_to: '19/08/2022',
-        Leave_reason: 'Family function',
-        Leave_status: true,
-      },
-    ]);
-    // fetch(baseURL)
-    //   .then((res) => res.json())
-    //   .then((res) => alert(JSON.stringify(res)))
-    //   .catch((err) => console.log(err));
-    // axios.get(baseURL).then((response) => {
-    //   alert(JSON.stringify(response));
-    //   setItem(response.data);
-    // });
+    // setItem([
+    //   {
+    //     EmpId: 1,
+    //     LeaveId: 1,
+    //     Email: 'harinim@123.com',
+    //     Password: 'Harini123',
+    //     EmpName: 'Harini M',
+    //     EmpPosition: { Role: 'Employee', Position: 'Front-end Dev' },
+    //     Date: '18/08/2022',
+    //     Working_hours: 8,
+    //     Leisure_hours: 1,
+    //     Time_In: '9:00 AM',
+    //     Time_Out: '6:00 PM',
+    //     Leave_type: 'Half-day',
+    //     Leave_category: 'Personal Leave',
+    //     Leave_from: '19/08/2022',
+    //     Leave_to: '19/08/2022',
+    //     Leave_reason: 'Family function',
+    //     Leave_status: true,
+    //   },
+    // ]);
+    fetch(baseURL)
+      .then((res) => res.json())
+      .then((res) => setItem(res))
+      .catch((err) => console.log(err));
+      
   }, []);
   console.log(Array.isArray(item));
 
