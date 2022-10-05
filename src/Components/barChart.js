@@ -39,32 +39,33 @@ function BarChart() {
           datas_p.push(x.Present),
           datas_a.push(x.Absent)
         })
+        setItem({
+          id: 2,
+          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Aug','Sep'],
+          datasets: [
+            {
+              label: ['Present'],
+              data: datas_p,
+              borderColor: ['rgba(255,206,86,0.2)'],
+              backgroundColor: ['rgba(232,99,132,1)'],
+              pointBackgroundColor: 'rgba(255,206,86,0.2)',
+              backgroundImage:
+                'lightblue url("https://www.chartjs.org/img/chartjs-logo.svgf") no-repeat fixed center',
+            },
+            {
+              label: ['Absent'],
+              data: datas_a,
+              borderColor: ['rgba(255,206,86,0.2)'],
+              backgroundColor: ['rgba(54,162,235,1)'],
+              pointBackgroundColor: 'rgba(255,206,86,0.2)',
+              backgroundImage:
+                'lightblue url("https://www.chartjs.org/img/chartjs-logo.svgf") no-repeat fixed center',
+            }
+          ],
+        })
       })  .catch((err) => console.log(err));
 
-    setItem({
-      id: 2,
-      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Aug','Sep'],
-      datasets: [
-        {
-          label: ['Present'],
-          data: datas_p,
-          borderColor: ['rgba(255,206,86,0.2)'],
-          backgroundColor: ['rgba(232,99,132,1)'],
-          pointBackgroundColor: 'rgba(255,206,86,0.2)',
-          backgroundImage:
-            'lightblue url("https://www.chartjs.org/img/chartjs-logo.svgf") no-repeat fixed center',
-        },
-        {
-          label: ['Absent'],
-          data: datas_a,
-          borderColor: ['rgba(255,206,86,0.2)'],
-          backgroundColor: ['rgba(54,162,235,1)'],
-          pointBackgroundColor: 'rgba(255,206,86,0.2)',
-          backgroundImage:
-            'lightblue url("https://www.chartjs.org/img/chartjs-logo.svgf") no-repeat fixed center',
-        }
-      ],
-    })
+
   },[]);
   const options = {
     plugins: {

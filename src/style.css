@@ -2,13 +2,15 @@
   font-family: sans-serif;
   text-align: center;
 }
-.pg-center{
+
+.pg-center {
   margin: 0 auto;
 }
+
 .m-0 {
   margin: 0 !important;
 }
- 
+
 .m-1 {
   margin: 0.25rem !important;
 }
@@ -134,10 +136,12 @@
   margin-right: 7.5rem !important;
   margin-left: 7.5rem !important;
 }
+
 .mx-14 {
   margin-right: 9.5rem !important;
   margin-left: 9.5rem !important;
 }
+
 .mx-auto {
   margin-right: auto !important;
   margin-left: auto !important;
@@ -212,6 +216,7 @@
   margin-top: 7.5rem !important;
   margin-bottom: 7.5rem !important;
 }
+
 .my-14 {
   margin-top: 9rem !important;
   margin-bottom: 9rem !important;
@@ -1103,6 +1108,7 @@
 .pt-13 {
   padding-top: 7.5rem !important;
 }
+
 .pt-14 {
   padding-top: 14.5rem !important;
 }
@@ -1218,6 +1224,7 @@
 .pb-13 {
   padding-bottom: 7.5rem !important;
 }
+
 .pb-14 {
   padding-bottom: 12.125rem !important;
 }
@@ -1277,29 +1284,29 @@
 .ps-13 {
   padding-left: 7.5rem !important;
 }
+
 .body-login-bg {
-  background: #667db6; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    rgb(102, 125, 182, 0.5),
-    rgb(0, 130, 200, 0.5),
-    rgb(0, 130, 200, 0.5),
-    rgb(102, 125, 182, 0.5)
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    rgb(102, 125, 182, 0.75),
-    rgb(0, 130, 200, 0.6),
-    rgb(0, 130, 200, 0.75),
-    rgb(102, 125, 182, 0.75)
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #667db6;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right,
+      rgb(102, 125, 182, 0.5),
+      rgb(0, 130, 200, 0.5),
+      rgb(0, 130, 200, 0.5),
+      rgb(102, 125, 182, 0.5));
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right,
+      rgb(102, 125, 182, 0.75),
+      rgb(0, 130, 200, 0.6),
+      rgb(0, 130, 200, 0.75),
+      rgb(102, 125, 182, 0.75));
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .form-center {
   display: flex;
   justify-content: center;
   align-items: center;
-  
+
 }
 
 .container-bg {
@@ -1334,18 +1341,21 @@
   display: flex;
   justify-content: center;
 }
+
 .bar canvas {
   width: 35vw !important;
   height: 40vh;
   display: flex;
   justify-content: center;
 }
-.donut canvas{
+
+.donut canvas {
   width: 20vw !important;
   height: 40vh;
   display: flex;
   justify-content: center;
 }
+
 .chart-align {
   display: flex;
   align-content: center;
@@ -1354,19 +1364,20 @@
   flex-direction: row;
   flex-wrap: wrap;
 }
+
 .page_bg {
-  background: #7474bf; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #348ac7,
-    #7474bf
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to left,
-    rgb(52, 138, 199, 0.89),
-    rgb(116, 116, 191, 0.7)
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #7474bf;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right,
+      #348ac7,
+      #7474bf);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left,
+      rgb(52, 138, 199, 0.89),
+      rgb(116, 116, 191, 0.7));
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
+
 .nav-tabs .nav-item.show .nav-link,
 .nav-tabs .nav-link.active {
   color: #fff;
@@ -1381,13 +1392,14 @@
   border: 1px solid transparent;
   border-top-left-radius: 0rem;
   border-top-right-radius: 0rem;
-  border-color: #212529;
+  /* border-color: #212529; */
   color: #fff;
 }
 
 .nav-bg {
-  background-color: #212529;
+  background-color: #040e008f;
 }
+
 .title {
   font-size: 1.5rem;
   color: #ffffff;
@@ -1399,6 +1411,7 @@
   flex-direction: row;
   align-items: flex-end;
 }
+
 .nav-link {
   display: block;
   padding: 0.5rem 1rem;
@@ -1407,8 +1420,36 @@
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out;
 }
+
 .nav-link:hover {
   color: #6c757d;
   border: 1px solid;
 }
 
+
+th {
+  background-color: rgb(99, 70, 126) !important;
+}
+
+
+th:first-child {
+  border-top-left-radius: 10px !important;
+}
+
+th:last-child {
+  border-top-right-radius: 10px !important;
+}
+
+tr:last-child td:first-child {
+  border-bottom-left-radius: 10px !important;
+
+}
+
+tr:last-child td:last-child {
+
+  border-bottom-right-radius: 10px !important;
+}
+
+tr:last-child {
+  border-color: transparent;
+}

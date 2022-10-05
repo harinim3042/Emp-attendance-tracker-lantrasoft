@@ -5,3 +5,36 @@
                   <Link to="/LeaveApproval">Leave</Link>
 <img src=" https://raw.githubusercontent.com/harinim3042/images/main/logo.png" height="26px"/>
                   #212529
+Login [POST]
+    Request
+        username 
+        password
+
+    Response
+        401
+            UnAuthorized
+
+            show error message
+
+        200
+            userInformation
+
+            {
+                id: 1
+                role: "HR",
+            }
+
+            Save in localStorage
+
+            redirect to dashboard
+
+Dashboard
+    localStorage.getItem("user")
+    API - getChartData/{userId}
+
+    {
+
+    }
+
+Logout
+    clear localStorage

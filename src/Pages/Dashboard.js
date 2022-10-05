@@ -3,16 +3,15 @@ import '../style.css';
 import DoughnutChart from '../Components/Donught.js';
 import LineChart from '../Components/Linechart.js';
 import BarChart from '../Components/barChart';
-import SideBarNavigation from '../Components/Navbar.js';
+import BarNavigation from '../Components/Navbar.js';
 import ClockTime from '../Components/DisplayClock.js';
 export default function Dashboard() {
   return (
     <>
-      <SideBarNavigation />
+      <BarNavigation />
       <div className="chart-align mt-2 mb-n2">
       <div className="chart-bg px-1 mx-13 py-4 my-2">
-      <ClockTime />
-      </div>
+    <h1>username</h1>  </div>
       <div className="chart-bg px-1 mx-13 py-4 my-2">
       <ClockTime />
       </div>

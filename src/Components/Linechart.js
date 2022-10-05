@@ -34,27 +34,28 @@ export default function LineChart() {
           datas_wh.push(x.Working_hours),
           datas_lh.push(x.Leisure_hours)
         })
+        setItem({
+          id: 2,
+          labels: ['Mon','Tue','Wed','Thurs','Fri'],
+          datasets: [
+            {
+              label: 'Working Hour',
+              data: datas_wh,
+              fill: true,
+             
+              borderColor: 'rgba(54,162,235,1)',
+            },
+            {
+              label: 'Leisure hour',
+              data: datas_lh,
+              fill: true,
+              borderColor: 'rgba(232,99,132,1)',
+            },
+          ],
+        })
       })  .catch((err) => console.log(err));
 
-    setItem({
-      id: 2,
-      labels: ['Mon','Tue','Wed','Thurs','Fri'],
-      datasets: [
-        {
-          label: 'Working Hour',
-          data: datas_wh,
-          fill: true,
-         
-          borderColor: 'rgba(54,162,235,1)',
-        },
-        {
-          label: 'Leisure hour',
-          data: datas_lh,
-          fill: true,
-          borderColor: 'rgba(232,99,132,1)',
-        },
-      ],
-    })
+
     },[]);
   const options = {
     plugins: {

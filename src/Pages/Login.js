@@ -3,24 +3,13 @@ import '../style.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Dashboard from './Dashboard';
+
+const baseURL = 'http://localhost:4000/empfullDetails';
+const loginUrl = 'http://localhost:4000/login';
 export default function Login() {
   // React States
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
-
-  // User Login info
-  const database = [
-    {
-      username: 'user1',
-      password: 'pass1',
-      role: ['HR'],
-    },
-    {
-      username: 'user2',
-      password: 'pass2',
-      role: [ 'EMPLOYEE'],
-    },
-  ];
 
   const errors = {
     uname: 'Invalid Username',
@@ -31,34 +20,47 @@ export default function Login() {
     //Prevent page reload
     event.preventDefault();
 
-    var { uname, pass } = document.forms[0];
-
-    // Find user login info
-    const userData = database.find((user) => user.username === uname.value);
-
-    // Compare user info
-    if (userData) {
-      if (userData.password !== pass.value) {
-        // Invalid password
-        setErrorMessages({ name: 'pass', message: errors.pass });
-      } else {
-        setIsSubmitted(true);
-      }
-    } else {
-      // Username not found
-      setErrorMessages({ name: 'uname', message: errors.uname });
+    const payload = {
+      email: Form.Control.uname,
+      password: Form.Control.pass
     }
-  };
 
-  // Generate JSX code for error message
-  const renderErrorMessage = (name) =>
-    name === errorMessages.name && (
-      <div className="error">{errorMessages.message}</div>
-    );
+    fetch(loginUrl, {
+      method: "POST",
+      body: JSON.stringify(payload)
+    })
+      .then((res) => res.json())
+      .then(json => {
+        console.log("json", json)
+
+        
+       
+        const userData =   (json.Email === payload.email);
+          // Compare user info
+          if (userData) {
+            if (userData.Password !== password) {
+              // Invalid password
+              setErrorMessages({ name: 'pass', message: errors.pass });
+            } else {
+              setIsSubmitted(true);
+            }
+          } else {
+            // Username not found
+            setErrorMessages({ name: 'uname', message: errors.uname });
+          }
+        
+      })
+  }
+// Generate JSX code for error message
+ const renderErrorMessage = (name) =>
+  name === errorMessages.name && (
+     <div className="error">{errorMessages.message}</div>
+  );
+
   const renderForm = (
     <div className="chart-align my-10">
       <div className="chart-bg pt-8 py-1 pb-5">
-        <form responsive="true" className="mx-13" onSubmit={handleSubmit}>
+        <Form responsive="true" className="mx-13" onSubmit={handleSubmit}>
           <h1 className="form-center"> LOGIN </h1>
           <h1 className="form-center ms-4">
             <img
@@ -77,6 +79,7 @@ export default function Login() {
                 type="text"
                 placeholder="Enter Employee EMAIL ID"
                 name="uname"
+                // controlId="email"
                 required
               />
             </div>
@@ -89,8 +92,9 @@ export default function Login() {
             <div className="mb-3 ">
               <Form.Control
                 type="password"
-                placeholder="Enter Employee Name"
+                placeholder="Enter Password"
                 name="pass"
+                // controlId="password"
                 required
               />
             </div>
@@ -102,9 +106,11 @@ export default function Login() {
               LOGIN
             </Button>
           </div>
-        </form>
+        </Form>
       </div>
     </div>
   );
   return <div>{isSubmitted ? <Dashboard /> : renderForm}</div>;
+
+
 }

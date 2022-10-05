@@ -21,12 +21,12 @@ function NavBar() {
       route: '/LeaveStatus',
       role: [ 'EMPLOYEE'],
     },
-    {
-      menu:'4',
-      label: 'LEAVE APPROVAL',
-      route: '/LeaveApproval',
-      role: ['HR'],
-    },
+    // {
+    //   menu:'4',
+    //   label: 'LEAVE APPROVAL',
+    //   route: '/LeaveApproval',
+    //   role: ['HR'],
+    // },
     {
       menu:'5',
       label: 'REPORTS',
