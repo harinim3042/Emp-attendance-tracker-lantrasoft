@@ -25,7 +25,7 @@ export default function Login() {
 
     let empId = Number(emp_id);
     if (isNaN(empId)) {
-      
+
       return
     }
 
@@ -36,7 +36,10 @@ export default function Login() {
     console.log(payload);
     fetch(loginUrl, {
       method: "POST",
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
+      headers:{
+        'Content-Type': 'application/json'
+      }
     })
       .then((res) => res.json())
       .then(data => {
