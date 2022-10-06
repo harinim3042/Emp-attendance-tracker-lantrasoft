@@ -28,11 +28,13 @@ console.log(payload);
       method: "POST",
       body: JSON.stringify(payload)
     })
-    // .then((res) => res.json())
+    .then((res) => res.json())
     .then(data => {
         localStorage.setItem('login_status', true);
         setIsLoginSuccessful(true);
-        // localStorage.setItem('user_Name', payload.email);
+        console.log(data)
+        localStorage.setItem('user_Data', JSON.stringify(data));
+        localStorage.setItem('user_Name', JSON.stringify(data.EmpName));
       })
       .catch((error) => {
 

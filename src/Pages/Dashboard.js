@@ -6,12 +6,14 @@ import BarChart from '../Components/barChart';
 import BarNavigation from '../Components/Navbar.js';
 import ClockTime from '../Components/DisplayClock.js';
 export default function Dashboard() {
+  const Username = JSON.parse(localStorage.getItem('user_Name'));
   return (
     <>
       <BarNavigation />
       <div className="chart-align mt-2 mb-n2">
       <div className="chart-bg px-1 mx-13 py-4 my-2">
-    <h1>username</h1>  </div>
+      
+    <h1>{Username}</h1>  </div>
       <div className="chart-bg px-1 mx-13 py-4 my-2">
       <ClockTime />
       </div>
