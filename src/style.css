@@ -1385,6 +1385,10 @@
   border-color: #212529;
 }
 
+.border-none {
+  border: none !important;
+}
+
 .nav-item,
 .nav-tabs .nav-link {
   margin-bottom: -1px;
@@ -1397,7 +1401,8 @@
 }
 
 .nav-bg {
-  background-color: #040e008f;
+  /* background-color: #040e008f; */
+  background-color: #3f51b5;
 }
 
 .title {
@@ -1426,7 +1431,10 @@
   border: 1px solid;
 }
 
-
+.dropdown-menu.show {
+  display: block;
+  background-color: #3f51b5;
+}
 th {
   background-color: rgb(99, 70, 126) !important;
 }

@@ -1,25 +1,25 @@
 import React from 'react';
 import Nav from 'react-bootstrap/Nav';
-
+import NavDropdown from 'react-bootstrap/NavDropdown';
 function NavBar() {
   let navMenus = [
-    { 
-      menu:'1',
+    {
+      menu: '1',
       label: 'HOME',
       route: '/Dashboard',
       role: ['HR'],
     },
     {
-      menu:'2',
+      menu: '2',
       label: 'LEAVE APPLICATION',
       route: '/LeaveApplication',
-      role: [ 'EMPLOYEE'],
+      role: ['EMPLOYEE'],
     },
     {
-      menu:'3',
+      menu: '3',
       label: 'LEAVE STATUS',
       route: '/LeaveStatus',
-      role: [ 'EMPLOYEE'],
+      role: ['EMPLOYEE'],
     },
     // {
     //   menu:'4',
@@ -28,23 +28,23 @@ function NavBar() {
     //   role: ['HR'],
     // },
     {
-      menu:'5',
+      menu: '5',
       label: 'REPORTS',
       route: '/Reports',
       role: ['HR'],
     },
-    {
-      menu:'6',
-      label: 'LOGOUT',
-      route: '/',
-      role: ['HR', 'EMPLOYEE'],
-    },
+    // {
+    //   menu: '6',
+    //   label: 'LOGOUT',
+    //   route: '/',
+    //   role: ['HR', 'EMPLOYEE'],
+    // },
 
   ];
   let userRole = 'HR';
 
   navMenus = navMenus.filter((m) => m.role.includes(userRole));
- 
+
   return (
     <>
       <div className=" mt-n1  nav-bg align-items-center ">
@@ -60,11 +60,16 @@ function NavBar() {
 
         <Nav className="justify-content-end mt-n7  me-2">
           {navMenus.map((m) => (
-            <Nav.Item key={m.menu}> 
+            <Nav.Item key={m.menu}>
               <Nav.Link href={m.route}>{m.label}</Nav.Link>
             </Nav.Item>
           ))}
 
+          <NavDropdown title="User" id="UserName" >
+            <Nav.Item >
+            <Nav.Link href="/" className="border-none">LOGOUT</Nav.Link> 
+            </Nav.Item>
+          </NavDropdown>
           {/* <Nav.Item>
             <Nav.Link href="/LeaveApplication">LEAVE APPLICATION</Nav.Link>
           </Nav.Item>

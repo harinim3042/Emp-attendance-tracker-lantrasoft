@@ -9,8 +9,10 @@ const loginUrl = 'http://localhost:4000/login';
 export default function Login() {
   // React States
   const [isLoginSuccessful, setIsLoginSuccessful] = useState(false);
-  const [email, setEmail] = useState("");
+  const [emp_id, setEmp_id] = useState("");
   const [password, setPassword] = useState("");
+
+  localStorage.clear();
 
   const errors = {
     uname: 'Invalid Username',
@@ -20,19 +22,18 @@ export default function Login() {
   const handleSubmit = (event) => {
     //Prevent page reload
     event.preventDefault();
- setEmail("");
- setPassword("");
+
     const payload = {
-      email: email,
+      emp_id: emp_id,
       password: password,
     }
-console.log(payload);
+    console.log(payload);
     fetch(loginUrl, {
       method: "POST",
       body: JSON.stringify(payload)
     })
-    .then((res) => res.json())
-    .then(data => {
+      .then((res) => res.json())
+      .then(data => {
         localStorage.setItem('login_status', true);
         setIsLoginSuccessful(true);
         console.log(data)
@@ -63,11 +64,11 @@ console.log(payload);
             </Form.Label>
             <div className="mb-3 ">
               <Form.Control
-                type="text"
-                placeholder="Enter Employee EMAIL ID"
-                name="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                type="number"
+                 placeholder="Enter Employee ID"
+                name="emp_id"
+                value={emp_id}
+                onChange={(e) => setEmp_id(e.target.value)}
                 // controlId="email"
                 required
               />
