@@ -3,6 +3,7 @@ import '../style.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Dashboard from './Dashboard';
+import logo from '../Assets/attendance.gif'
 
 const loginUrl = 'http://localhost:4000/login';
 export default function Login() {
@@ -59,11 +60,12 @@ export default function Login() {
         <Form responsive="true" className="mx-13" onSubmit={handleSubmit}>
           <h1 className="form-center"> LOGIN </h1>
           <h1 className="form-center ms-4">
-            <img
-              src="https://github.com/harinim3042/images/blob/main/Attendance.gif?raw=true"
+            {/* <img 
+            src='./Assets/attendance.gif'
               width="220px"
               height="220px"
-            />
+            /> */}<img src={logo} alt={"logo"} width="220px"
+              height="220px"/> 
           </h1>
 
           <div className="mb-3 ms-6 ">
