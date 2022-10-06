@@ -1336,14 +1336,14 @@
 }
 
 .line canvas {
-  width: 35vw !important;
+  width: 25vw !important;
   height: 40vh;
   display: flex;
   justify-content: center;
 }
 
 .bar canvas {
-  width: 35vw !important;
+  width: 25vw !important;
   height: 40vh;
   display: flex;
   justify-content: center;
@@ -1366,23 +1366,24 @@
 }
 
 .page_bg {
-  background: #7474bf;
+  /* background: #7474bf;
   /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right,
+  /* background: -webkit-linear-gradient(to right,
       #348ac7,
-      #7474bf);
+      #7474bf); */
   /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to left,
+  /* background: linear-gradient(to left,
       rgb(52, 138, 199, 0.89),
-      rgb(116, 116, 191, 0.7));
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      rgb(116, 116, 191, 0.7)); */
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ 
+  background: #2b1c65
 }
 
 .nav-tabs .nav-item.show .nav-link,
 .nav-tabs .nav-link.active {
-  color: #fff;
-  background-color: #212529;
-  border-color: #212529;
+  background-color: rgb(19, 1, 1);
+  color: #212529;
+  /* border-color: #212529; */
 }
 
 .border-none {
@@ -1397,17 +1398,17 @@
   border-top-left-radius: 0rem;
   border-top-right-radius: 0rem;
   /* border-color: #212529; */
-  color: #fff;
+  color: rgb(19, 1, 1);
 }
 
 .nav-bg {
   /* background-color: #040e008f; */
-  background-color: #3f51b5;
+  background-color: #ffffffd8;
 }
 
 .title {
   font-size: 1.5rem;
-  color: #ffffff;
+  color: #050505;
   transition: ease-in-out;
   display: flex;
   flex-wrap: nowrap;
@@ -1420,21 +1421,27 @@
 .nav-link {
   display: block;
   padding: 0.5rem 1rem;
-  color: #ffffff;
+  color:rgb(19, 1, 1);
   text-decoration: none;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out;
 }
 
 .nav-link:hover {
-  color: #6c757d;
+  color: rgb(19, 1, 1);
   border: 1px solid;
 }
 
-.dropdown-menu.show {
+.dropdown-menu.show,.dropdown-menu.active  {
   display: block;
-  background-color: #3f51b5;
+  color: rgb(19, 1, 1);
+  background-color: #ffffffd8;
 }
+
+.nav-link:focus, .nav-link:hover {
+  color: none !important;
+}
+
 th {
   background-color: rgb(99, 70, 126) !important;
 }

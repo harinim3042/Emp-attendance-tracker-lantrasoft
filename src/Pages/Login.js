@@ -23,8 +23,14 @@ export default function Login() {
     //Prevent page reload
     event.preventDefault();
 
+    let empId = Number(emp_id);
+    if (isNaN(empId)) {
+      
+      return
+    }
+
     const payload = {
-      emp_id: emp_id,
+      emp_id: empId,
       password: password,
     }
     console.log(payload);
@@ -64,7 +70,7 @@ export default function Login() {
             </Form.Label>
             <div className="mb-3 ">
               <Form.Control
-                type="number"
+                type="integer"
                  placeholder="Enter Employee ID"
                 name="emp_id"
                 value={emp_id}
