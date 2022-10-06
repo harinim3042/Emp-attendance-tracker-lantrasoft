@@ -8,8 +8,7 @@ const baseURL = 'http://localhost:4000/empfullDetails';
 const loginUrl = 'http://localhost:4000/login';
 export default function Login() {
   // React States
-  const [errorMessages, setErrorMessages] = useState({});
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoginSuccessful, setIsLoginSuccessful] = useState(false);
 
   const errors = {
     uname: 'Invalid Username',
@@ -21,41 +20,24 @@ export default function Login() {
     event.preventDefault();
 
     const payload = {
-      email: Form.Control.uname,
-      password: Form.Control.pass
+      email: Form.Control.email,
+      password: Form.Control.password,
     }
-
+console.log(payload);
     fetch(loginUrl, {
       method: "POST",
       body: JSON.stringify(payload)
     })
-      .then((res) => res.json())
-      .then(json => {
-        console.log("json", json)
+    // .then((res) => res.json())
+    .then(data => {
+        localStorage.setItem('login_status', true);
+        setIsLoginSuccessful(true);
+        // localStorage.setItem('user_Name', payload.email);
+      })
+      .catch((error) => {
 
-        
-       
-        const userData =   (json.Email === payload.email);
-          // Compare user info
-          if (userData) {
-            if (userData.Password !== password) {
-              // Invalid password
-              setErrorMessages({ name: 'pass', message: errors.pass });
-            } else {
-              setIsSubmitted(true);
-            }
-          } else {
-            // Username not found
-            setErrorMessages({ name: 'uname', message: errors.uname });
-          }
-        
       })
   }
-// Generate JSX code for error message
- const renderErrorMessage = (name) =>
-  name === errorMessages.name && (
-     <div className="error">{errorMessages.message}</div>
-  );
 
   const renderForm = (
     <div className="chart-align my-10">
@@ -78,12 +60,12 @@ export default function Login() {
               <Form.Control
                 type="text"
                 placeholder="Enter Employee EMAIL ID"
-                name="uname"
+                name="email"
                 // controlId="email"
                 required
               />
             </div>
-            {renderErrorMessage('uname')}
+
           </div>
           <div className="mb-3 ms-6">
             <Form.Label>
@@ -93,12 +75,12 @@ export default function Login() {
               <Form.Control
                 type="password"
                 placeholder="Enter Password"
-                name="pass"
+                name="password"
                 // controlId="password"
                 required
               />
             </div>
-            {renderErrorMessage('pass')}
+
           </div>
 
           <div className="form-center">
@@ -110,7 +92,7 @@ export default function Login() {
       </div>
     </div>
   );
-  return <div>{isSubmitted ? <Dashboard /> : renderForm}</div>;
+  return <div>{isLoginSuccessful ? <Dashboard /> : renderForm}</div>;
 
 
 }
