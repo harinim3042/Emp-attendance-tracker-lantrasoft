@@ -4,12 +4,11 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Dashboard from './Dashboard';
 
-const baseURL = 'http://localhost:4000/empfullDetails';
 const loginUrl = 'http://localhost:4000/login';
 export default function Login() {
   // React States
   const [isLoginSuccessful, setIsLoginSuccessful] = useState(false);
-  const [emp_id, setEmp_id] = useState("");
+  const [EmpId, setEmpId] = useState("");
   const [password, setPassword] = useState("");
 
   localStorage.clear();
@@ -23,15 +22,15 @@ export default function Login() {
     //Prevent page reload
     event.preventDefault();
 
-    let empId = Number(emp_id);
+    let empId = Number(EmpId);
     if (isNaN(empId)) {
 
       return
     }
 
     const payload = {
-      emp_id: empId,
-      password: password,
+      EmpId: empId,
+      Password: password,
     }
     console.log(payload);
     fetch(loginUrl, {
@@ -75,9 +74,9 @@ export default function Login() {
               <Form.Control
                 type="integer"
                  placeholder="Enter Employee ID"
-                name="emp_id"
-                value={emp_id}
-                onChange={(e) => setEmp_id(e.target.value)}
+                name="EmpId"
+                value={EmpId}
+                onChange={(e) => setEmpId(e.target.value)}
                 // controlId="email"
                 required
               />
