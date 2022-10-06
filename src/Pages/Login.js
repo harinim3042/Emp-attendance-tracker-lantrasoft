@@ -9,6 +9,8 @@ const loginUrl = 'http://localhost:4000/login';
 export default function Login() {
   // React States
   const [isLoginSuccessful, setIsLoginSuccessful] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const errors = {
     uname: 'Invalid Username',
@@ -18,10 +20,11 @@ export default function Login() {
   const handleSubmit = (event) => {
     //Prevent page reload
     event.preventDefault();
-
+ setEmail("");
+ setPassword("");
     const payload = {
-      email: Form.Control.email,
-      password: Form.Control.password,
+      email: email,
+      password: password,
     }
 console.log(payload);
     fetch(loginUrl, {
@@ -63,6 +66,8 @@ console.log(payload);
                 type="text"
                 placeholder="Enter Employee EMAIL ID"
                 name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 // controlId="email"
                 required
               />
@@ -78,6 +83,8 @@ console.log(payload);
                 type="password"
                 placeholder="Enter Password"
                 name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 // controlId="password"
                 required
               />

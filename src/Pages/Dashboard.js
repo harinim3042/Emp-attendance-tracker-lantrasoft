@@ -15,7 +15,7 @@ export default function Dashboard() {
       
     <h1>{Username}</h1>  </div>
       <div className="chart-bg px-1 mx-13 py-4 my-2">
-      <ClockTime />
+      <h1><ClockTime /></h1>
       </div>
       </div>
        <div className="chart-align my-9">
