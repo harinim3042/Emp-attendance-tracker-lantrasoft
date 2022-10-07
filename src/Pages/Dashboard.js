@@ -6,7 +6,7 @@ import BarChart from '../Components/barChart';
 import BarNavigation from '../Components/Navbar.js';
 import ClockTime from '../Components/DisplayClock.js';
 export default function Dashboard() {
-  // const Username = JSON.parse(localStorage.getItem('user_Name'));
+  const userData = JSON.parse(localStorage.getItem("userData"));
   return (
     <>
       <BarNavigation />

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Doughnut } from 'react-chartjs-2';
-const baseURL = 'http://localhost:4000/Dashboard/Working_hr_Leisure_hr';
+const baseURL = 'http://127.0.0.1:8000/getAnalyticsByIDandDate?EmpId=101&date=2022-10-03';
 
 export default function DoughnutChart() {
   const [item, setItem] = useState({
@@ -24,12 +24,10 @@ export default function DoughnutChart() {
     const datas = [];
     fetch(baseURL)
       .then((res) => res.json())
-      .then(json => {
-        console.log("json", json)
-        json.map((x) => {
-          datas.push(x.Working_hours)
-          datas.push(x.Leisure_hours)
-        })
+      .then(x => {
+        console.log("json", x)
+        datas.push(x['workingHours'])
+        datas.push(x['leisureHours'])
         setItem({
           labels: ['Working Hours', 'Leisure Hours'],
           datasets: [

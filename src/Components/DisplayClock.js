@@ -12,6 +12,7 @@ function DisplayClock() {
           day: 'numeric',
           month: 'short',
           year: 'numeric',
+        
         })}
         <br />
         {dateState.toLocaleString('en-US', {

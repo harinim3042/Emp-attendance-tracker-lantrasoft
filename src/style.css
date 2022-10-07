@@ -1302,9 +1302,7 @@
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-/* .bg-img{
-  background-image: url(src\Assets\swirls-purple.svg);
-} */
+
 .form-center {
   display: flex;
   justify-content: center;

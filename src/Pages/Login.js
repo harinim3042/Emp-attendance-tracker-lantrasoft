@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import '../style.css';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import Dashboard from './Dashboard';
-import logo from '../Assets/attendance.gif'
+import React, { useState } from "react";
+import "../style.css";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import Dashboard from "./Dashboard";
+import logo from "../Assets/attendance.gif";
 
-const loginUrl = 'http://localhost:4000/login';
+const loginUrl = "http://127.0.0.1:8000/login";
 export default function Login() {
   // React States
   const [isLoginSuccessful, setIsLoginSuccessful] = useState(false);
   const [EmpId, setEmpId] = useState("");
   const [password, setPassword] = useState("");
 
-  localStorage.clear();
+  //localStorage.clear();
 
   const errors = {
-    uname: 'Invalid Username',
-    pass: 'Invalid Password',
+    uname: "Invalid Username",
+    pass: "Invalid Password",
   };
 
   const handleSubmit = (event) => {
@@ -25,34 +25,32 @@ export default function Login() {
 
     let empId = Number(EmpId);
     if (isNaN(empId)) {
-
-      return
+      return;
     }
 
     const payload = {
-      EmpId: empId,
-      Password: password,
-    }
+      emp_id: empId,
+      password: password,
+    };
     console.log(payload);
     fetch(loginUrl, {
       method: "POST",
       body: JSON.stringify(payload),
-      headers:{
-        'Content-Type': 'application/json'
-      }
+      headers: {
+        "Content-Type": "application/json",
+      },
     })
       .then((res) => res.json())
-      .then(data => {
-        localStorage.setItem('login_status', true);
-        setIsLoginSuccessful(true);
-        console.log(data)
-        localStorage.setItem('user_Data', JSON.stringify(data));
-        localStorage.setItem('user_Name', JSON.stringify(data.EmpName));
+      .then((data) => {
+        if (data.message) {
+          alert(data.message)
+        } else {
+          setIsLoginSuccessful(true);
+          localStorage.setItem("userData", JSON.stringify(data));
+        }
       })
-      .catch((error) => {
-
-      })
-  }
+      .catch((error) => {});
+  };
 
   const renderForm = (
     <div className="chart-align my-10">
@@ -64,8 +62,8 @@ export default function Login() {
             src='./Assets/attendance.gif'
               width="220px"
               height="220px"
-            /> */}<img src={logo} alt={"logo"} width="220px"
-              height="220px"/> 
+            /> */}
+            <img src={logo} alt={"logo"} width="220px" height="220px" />
           </h1>
 
           <div className="mb-3 ms-6 ">
@@ -75,7 +73,7 @@ export default function Login() {
             <div className="mb-3 ">
               <Form.Control
                 type="integer"
-                 placeholder="Enter Employee ID"
+                placeholder="Enter Employee ID"
                 name="EmpId"
                 value={EmpId}
                 onChange={(e) => setEmpId(e.target.value)}
@@ -83,7 +81,6 @@ export default function Login() {
                 required
               />
             </div>
-
           </div>
           <div className="mb-3 ms-6">
             <Form.Label>
@@ -100,7 +97,6 @@ export default function Login() {
                 required
               />
             </div>
-
           </div>
 
           <div className="form-center">
@@ -113,6 +109,4 @@ export default function Login() {
     </div>
   );
   return <div>{isLoginSuccessful ? <Dashboard /> : renderForm}</div>;
-
-
 }

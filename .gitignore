@@ -1,2 +1,6 @@
 node_modules
 build
+fastapi/venv/__pycache__
+fastapi/venv/Include
+fastapi/venv/Scripts
+fastapi/venv/Lib

@@ -2,49 +2,27 @@ import React from 'react';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 function NavBar() {
+
   let navMenus = [
     {
       menu: '1',
       label: 'HOME',
       route: '/Dashboard',
-      role: ['HR'],
+      role: ['Associate'],
     },
     {
       menu: '2',
-      label: 'LEAVE APPLICATION',
-      route: '/LeaveApplication',
-      role: ['EMPLOYEE'],
-    },
-    {
-      menu: '3',
-      label: 'LEAVE STATUS',
-      route: '/LeaveStatus',
-      role: ['EMPLOYEE'],
-    },
-    // {
-    //   menu:'4',
-    //   label: 'LEAVE APPROVAL',
-    //   route: '/LeaveApproval',
-    //   role: ['HR'],
-    // },
-    {
-      menu: '5',
       label: 'REPORTS',
       route: '/Reports',
-      role: ['HR'],
+      role: ['Associate'],
     },
-    // {
-    //   menu: '6',
-    //   label: 'LOGOUT',
-    //   route: '/',
-    //   role: ['HR', 'EMPLOYEE'],
-    // },
-
   ];
-  let userRole = 'HR';
+  const userData = JSON.parse(localStorage.getItem("userData"));
+  const user_Name = userData['name'];
+  const userRole = userData['role'];
 
   navMenus = navMenus.filter((m) => m.role.includes(userRole));
-
+  
   return (
     <>
       <div className=" mt-n1  nav-bg align-items-center ">
@@ -65,7 +43,7 @@ function NavBar() {
             </Nav.Item>
           ))}
 
-          <NavDropdown title="User" id="UserName" >
+          <NavDropdown title={user_Name} id="UserName" >
             <Nav.Item >
             <Nav.Link href="/" className="border-none">LOGOUT</Nav.Link> 
             </Nav.Item>
