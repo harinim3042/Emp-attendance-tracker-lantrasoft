@@ -68,7 +68,7 @@ export default function Login() {
 
           <div className="mb-3 ms-6 ">
             <Form.Label>
-              <b>EMPLOYEE EMAIL ID</b>
+              <b>EMPLOYEE ID</b>
             </Form.Label>
             <div className="mb-3 ">
               <Form.Control
