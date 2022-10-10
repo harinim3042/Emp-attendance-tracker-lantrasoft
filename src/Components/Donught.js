@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Doughnut } from 'react-chartjs-2';
-const baseURL = 'http://127.0.0.1:8000/getAnalyticsByIDandDate?EmpId=101&date=2022-10-03';
 
 export default function DoughnutChart() {
+  const userData = JSON.parse(localStorage.getItem("userData"));
+  const empId = userData['emp_id'];
+  const baseURL = 'http://127.0.0.1:8000/getAnalyticsByIDandDate?EmpId=' + empId + '&date=2022-10-03';
+
+ 
+
   const [item, setItem] = useState({
     id: 1,
     labels: ['Working Hours', 'Leisure Hours'],
@@ -23,11 +28,11 @@ export default function DoughnutChart() {
   React.useEffect(() => {
     const datas = [];
     fetch(baseURL)
-      .then((res) => res.json())
-      .then(x => {
-        console.log("json", x)
-        datas.push(x['workingHours'])
-        datas.push(x['leisureHours'])
+     .then((res) => res.json())
+     .then(x => {
+   
+       datas.push(x['workingHours'])
+       datas.push(x['leisureHours'])
         setItem({
           labels: ['Working Hours', 'Leisure Hours'],
           datasets: [
@@ -43,6 +48,7 @@ export default function DoughnutChart() {
             },
           ],
         })
+   
       })  .catch((err) => console.log(err));
 
     
@@ -51,7 +57,16 @@ export default function DoughnutChart() {
   }, []);
 
   const options = {
+    
     plugins: {
+      // tooltip: {
+      //   callbacks: {
+      //             label: function(tooltipItem, data) {
+                 
+      //               return 'Time: '+ new Date(tooltipItem.yLabel*1000).toISOString().length(11, 5) 
+      //             }
+      //         }
+      // },
       title: {
         display: true,
         text: 'WH/LH Daily Chart',
@@ -59,7 +74,6 @@ export default function DoughnutChart() {
         font: {
           size: 34,
         },
-
         responsive: true,
         animation: {
           animateScale: true,

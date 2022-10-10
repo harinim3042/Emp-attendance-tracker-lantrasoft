@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
-const baseURL = 'http://localhost:4000/Dashboard/Working_hr_Leisure_hr_pw';
+
+const userData = JSON.parse(localStorage.getItem("userData"));
+const empId = userData['emp_id'];
+const baseURL = 'http://127.0.0.1:8000/getAnalyticsByID?EmpId=' + empId + '';
 
 export default function LineChart() {
   const [item, setItem] = useState({

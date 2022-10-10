@@ -1,7 +1,7 @@
 import psycopg2
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
-from typing import List, Dict
+from typing import List, Dict,Union
 from datetime import datetime,date
 import pandas as pd
 import numpy as np
@@ -279,25 +279,33 @@ async def get_employee_by_id(EmpId: int):
     cur.execute(f'SELECT "in_time","out_time","id","emp_id" FROM "{table_name3}" natural join "employee" where "emp_id"={EmpId} and "id"!=4')
     data1=cur.fetchall()
     wdict={}
+    wdict_time={}
     for row in data1:
         print(row)
         if row[0].date()==row[1].date(): 
             if row[0].date() not in wdict:
                 wdict[row[0].date()]=datetime(1, 1, 1, 0, 0)
+                wdict_time[row[0].date()]=0
                 wdict[row[0].date()]+=(row[1]-row[0])
+                wdict_time[row[0].date()]+=(row[1]-row[0]).total_seconds()
             else:
                 wdict[row[0].date()]+=(row[1]-row[0])
- 
+                wdict_time[row[0].date()]+=(row[1]-row[0]).total_seconds()
+    print(wdict_time)
     cur.execute(f'SELECT "in_time","out_time","id","emp_id" FROM "{table_name3}" natural join "employee" where "emp_id"={EmpId} and "id"=4')
     data1=cur.fetchall()
     ldict={}
+    ldict_time={}
     for row in data1:
         if row[0].date()==row[1].date(): 
             if row[0].date() not in ldict:
                 ldict[row[0].date()]=datetime(1, 1, 1, 0, 0)
+                ldict_time[row[0].date()]=0
                 ldict[row[0].date()]+=(row[1]-row[0])
+                ldict_time[row[0].date()]+=(row[1]-row[0]).total_seconds()
             else:
                 ldict[row[0].date()]+=(row[1]-row[0])
+                ldict_time[row[0].date()]+=(row[1]-row[0]).total_seconds()
     ans = []            
     for i in wdict:
         wdict[i]=wdict[i].time()
@@ -306,9 +314,55 @@ async def get_employee_by_id(EmpId: int):
         print("Working Hours:",wdict[i])
         print("Leisure Hours:",ldict[i])
         print("\n")
-        temp={ 'Date' : i , 'Working Hours' : wdict[i] , 'Leisure Hours' : ldict[i] }
+        temp={ 'Date' : i , 'workingHours': wdict_time[i],'leisureHours': ldict_time[i],'Working Hours' : wdict[i] , 'Leisure Hours' : ldict[i] }
         ans.append(temp)
     return ans
+    
+@app.get('/getLatestAnalyticsByID')
+async def get_employee_by_id(EmpId: int):
+    cur.execute(f'SELECT "in_time","out_time","id","emp_id" FROM "{table_name3}" natural join "employee" where "emp_id"={EmpId} and "id"!=4')
+    data1=cur.fetchall()
+    wdict={}
+    wdict_time={}
+    for row in data1:
+        print(row)
+        if row[0].date()==row[1].date(): 
+            if row[0].date() not in wdict:
+                wdict[row[0].date()]=datetime(1, 1, 1, 0, 0)
+                wdict_time[row[0].date()]=0
+                wdict[row[0].date()]+=(row[1]-row[0])
+                wdict_time[row[0].date()]+=(row[1]-row[0]).total_seconds()
+            else:
+                wdict[row[0].date()]+=(row[1]-row[0])
+                wdict_time[row[0].date()]+=(row[1]-row[0]).total_seconds()
+    print(wdict_time)
+    cur.execute(f'SELECT "in_time","out_time","id","emp_id" FROM "{table_name3}" natural join "employee" where "emp_id"={EmpId} and "id"=4')
+    data1=cur.fetchall()
+    ldict={}
+    ldict_time={}
+    for row in data1:
+        if row[0].date()==row[1].date(): 
+            if row[0].date() not in ldict:
+                ldict[row[0].date()]=datetime(1, 1, 1, 0, 0)
+                ldict_time[row[0].date()]=0
+                ldict[row[0].date()]+=(row[1]-row[0])
+                ldict_time[row[0].date()]+=(row[1]-row[0]).total_seconds()
+            else:
+                ldict[row[0].date()]+=(row[1]-row[0])
+                ldict_time[row[0].date()]+=(row[1]-row[0]).total_seconds()
+    ans = []   
+    j=0         
+    for i in wdict:
+        wdict[i]=wdict[i].time()
+        j+=1
+        ldict[i]=ldict[i].time()
+        print("Date:",i)
+        print("Working Hours:",wdict[i])
+        print("Leisure Hours:",ldict[i])
+        print("\n")
+        temp={ 'Date' : i , 'workingHours': wdict_time[i],'leisureHours': ldict_time[i],'Working Hours' : wdict[i] , 'Leisure Hours' : ldict[i] }
+        ans.append(temp)
+    return ans[-1]    
 
 @app.get('/getAnalyticsByIDandDate')
 async def get_employee_by_id(EmpId: int, date:date):
@@ -376,15 +430,98 @@ async def get_employee_by_id(EmpId: int,m:int,y:int):
     temp = { 'Month' : full_month_name , 'Present' : present , 'Absent' : absent}
     return temp
 
-@app.get('/getAnalyticsByFloor')
-async def get_employee_by_id(EmpId: int,date:date, floor:int):
-    cur.execute(f'SELECT "in_time","out_time","id","emp_id" FROM "{table_name3}" natural join "employee" where "emp_id"={EmpId} and DATE("in_time")=\'{date}\' and "id"={floor}')
+@app.get('/getYearlyAttendaceByID')
+async def get_employee_by_id(EmpId: int,y:int):
+    cur.execute(f'SELECT DISTINCT DATE("in_time") FROM "{table_name3}" natural join "employee" where "emp_id"={EmpId}')
+    data=pd.DataFrame(cur.fetchall(),columns=['date'])
+    today = datetime.now()
+    ans=[]
+    list = [1,3,5,7,8,10,12]
+    leap = 0
+    d=0
+    if y% 400 == 0:
+        leap = 1
+    elif y % 100 == 0:
+        leap = 0
+    elif y% 4 == 0:
+        leap = 1
+    for m in range(1,today.month+1):    
+        if m==2:
+            s1=28 + leap
+            y=str(y)
+            m=str(m)
+            s2=str(s1)
+            str2=y+"-"+m+"-"+s2
+            d=s1
+        elif m==today.month: 
+            y=str(y)
+            m=str(m)
+            dd=str(today.day)
+            str2=y+"-"+m+"-"+dd
+            d=int(dd)
+
+        elif m in list:
+            y=str(y)
+            m=str(m)
+            str2=y+"-"+m+"-"+"31"
+            d=31   
+        else:
+            y=str(y)
+            m=str(m)
+            str2= y+"-"+m+"-"+"30"
+            d=30
+        str1= y+"-"+m+"-"+"01"      
+        data['date'] = pd.to_datetime(data['date'])
+        my_range= pd.date_range(start=str(str1), end=str(str2), freq='B')
+        absent=len(my_range.difference(data['date']))
+        # days = np.busday_count(str(str1),str(str2) )
+        days = len(pd.bdate_range(str(str1),str(str2))) 
+        m=str(m)
+        datetime_object = datetime.strptime(m, "%m")
+        present=days-absent
+        full_month_name = datetime_object.strftime("%B")
+        temp = { 'Month' : full_month_name , 'Present' : present , 'Absent' : absent}
+        ans.append(temp)
+    return ans
+
+
+# @app.get('/getAnalyticsByFloor')
+# async def get_employee_by_id(EmpId: int,date:date):
+#     cur.execute(f'SELECT "in_time","out_time","id","emp_id" FROM "{table_name3}" natural join "employee" where "emp_id"={EmpId} and DATE("in_time")=\'{date}\'')
+#     data1=cur.fetchall()
+#     whrs=datetime(1, 1, 1, 0, 0)
+#     # wsum=0
+#     temp=[]
+#     count=int(1)
+#     for row in data1:
+#         whrs=datetime(1, 1, 1, 0, 0)
+#         intime=row[0].time()
+#         outtime=row[1].time()       
+#         whrs+=row[1]-row[0]
+#         # wsum+=(row[1]-row[0]).total_seconds()
+#         ans={ 'Sno':count,'Floor':row[2],'InTime' : intime , 'OutTime' : outtime , 'duration' : whrs.time()}#,duration_sec' : wsum}
+#         temp.append(ans) 
+#         count+=1
+#     return temp
+@app.get('/getAllAnalyticsByFloor')
+async def get_employee_by_id(EmpId: int,date:date, floor: Union[int, None]=None):
+    if floor:
+         cur.execute(f'SELECT "in_time","out_time","id","emp_id" FROM "{table_name3}" natural join "employee" where "emp_id"={EmpId} and DATE("in_time")=\'{date}\' and "id"={floor}')
+    else:
+         cur.execute(f'SELECT "in_time","out_time","id","emp_id" FROM "{table_name3}" natural join "employee" where "emp_id"={EmpId} and DATE("in_time")=\'{date}\'')
     data1=cur.fetchall()
     whrs=datetime(1, 1, 1, 0, 0)
+    # wsum=0
+    ans=[]
     for row in data1:
+        whrs=datetime(1, 1, 1, 0, 0)
         intime=row[0].time()
         outtime=row[1].time()       
         whrs+=row[1]-row[0]
-    temp = { 'Floor':floor,'InTime' : intime , 'OutTime' : outtime , 'duration' : whrs.time()}
-    return temp
-
+        # wsum+=(row[1]-row[0]).total_seconds()
+        if floor:
+            temp = { 'Floor':floor,'InTime' : intime , 'OutTime' : outtime , 'duration' : whrs.time()}#,duration_sec' : wsum}
+        else:
+             temp = { 'Floor':row[3],'InTime' : intime , 'OutTime' : outtime , 'duration' : whrs.time()}#,duration_sec' : wsum}
+        ans.append(temp)    
+    return ans
