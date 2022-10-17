@@ -6,7 +6,7 @@ import BarChart from '../Components/barChart';
 import BarNavigation from '../Components/Navbar.js';
 import ClockTime from '../Components/DisplayClock.js';
 export default function Dashboard() {
-  const userData = JSON.parse(localStorage.getItem("userData"));
+ // const userData = JSON.parse(localStorage.getItem("userData"));
   return (
     <>
       <BarNavigation />
@@ -19,14 +19,14 @@ export default function Dashboard() {
           <h1><ClockTime /></h1>
         </div>
       </div> */}
-      <div className="chart-align my-9">
-        <div className="chart-bg donut px-5 mx-3 py-4 my-2">
+      <div className="chart-align container-fluid my-9 ">
+        <div className="chart-bg donut px-6 mx-4 py-6 my-2 ">
           <DoughnutChart />
         </div>
-        <div className="chart-bg line px-5 mx-3 py-4 my-2">
+        <div className="chart-bg line px-5 mx-3 py-6 my-2 ">
           <LineChart />
         </div>
-        <div className="chart-bg bar px-5 mx-3 py-4 my-2">
+        <div className="chart-bg bar px-5 mx-13 py-6 my-2 ">
           <BarChart />
         </div>
       </div>

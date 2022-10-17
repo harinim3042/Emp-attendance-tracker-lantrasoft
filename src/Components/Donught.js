@@ -1,76 +1,74 @@
-import React, { useState, useEffect } from 'react';
-import { Doughnut } from 'react-chartjs-2';
+import React, { useState, useEffect } from "react";
+import { Doughnut } from "react-chartjs-2";
 
 export default function DoughnutChart() {
   const userData = JSON.parse(localStorage.getItem("userData"));
-  const empId = userData['emp_id'];
-  const baseURL = 'http://127.0.0.1:8000/getAnalyticsByIDandDate?EmpId=' + empId + '&date=2022-10-03';
-
- 
+  const empId = userData["emp_id"];
+  // const empId = 101;
+  const baseURL =
+    "http://127.0.0.1:8000/getAnalyticsByIDandDate?EmpId=" +
+    empId +
+    "&date=2022-10-03";
 
   const [item, setItem] = useState({
     id: 1,
-    labels: ['Working Hours', 'Leisure Hours'],
+    labels: ["Working Hours", "Leisure Hours"],
     datasets: [
       {
-        
-        label: 'WH/LH',
+        label: "WH/LH",
         data: [1, 1],
-        borderColor: ['rgba(255,206,86,0.2)'],
-        backgroundColor: ['rgba(54,162,235,1)', 'rgba(232,99,132,1)'],
-        pointBackgroundColor: 'rgba(255,206,86,0.2)',
+        borderColor: ["rgba(255,206,86,0.2)"],
+        backgroundColor: ["rgba(54,162,235,1)", "rgba(232,99,132,1)"],
+        pointBackgroundColor: "rgba(255,206,86,0.2)",
         backgroundImage:
           'lightblue url("https://www.chartjs.org/img/chartjs-logo.svgf") no-repeat fixed center',
       },
     ],
-  })
+  });
 
   React.useEffect(() => {
     const datas = [];
+    const datas_lbl = [];
     fetch(baseURL)
-     .then((res) => res.json())
-     .then(x => {
-   
-       datas.push(x['workingHours'])
-       datas.push(x['leisureHours'])
+      .then((res) => res.json())
+      .then((x) => {
+        datas_lbl.push(x["Working Hours"]);
+        datas_lbl.push(x["Leisure Hours"]);
+        datas.push(x["workingHours"]);
+        datas.push(x["leisureHours"]);
         setItem({
-          labels: ['Working Hours', 'Leisure Hours'],
+          labels: ["Working Hours", "Leisure Hours"],
           datasets: [
             {
               id: 1,
-              label: 'WH/LH',
+              labels: datas_lbl,
               data: datas,
-              borderColor: ['rgba(255,206,86,0.2)'],
-              backgroundColor: ['rgba(54,162,235,1)', 'rgba(232,99,132,1)'],
-              pointBackgroundColor: 'rgba(255,206,86,0.2)',
+              borderColor: ["rgba(255,206,86,0.2)"],
+              backgroundColor: ["rgba(54,162,235,1)", "rgba(232,99,132,1)"],
+              pointBackgroundColor: "rgba(255,206,86,0.2)",
               backgroundImage:
                 'lightblue url("https://www.chartjs.org/img/chartjs-logo.svgf") no-repeat fixed center',
             },
           ],
-        })
-   
-      })  .catch((err) => console.log(err));
-
-    
-    
-
+        });
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   const options = {
-    
     plugins: {
-      // tooltip: {
-      //   callbacks: {
-      //             label: function(tooltipItem, data) {
-                 
-      //               return 'Time: '+ new Date(tooltipItem.yLabel*1000).toISOString().length(11, 5) 
-      //             }
-      //         }
-      // },
+      tooltip: {
+        callbacks: {
+          label: function(context) {
+             return `${context.label} : ${context.dataset.labels[context.dataIndex]}`
+          },
+        }
+      },
+
       title: {
         display: true,
-        text: 'WH/LH Daily Chart',
-        color: 'blue',
+        text: "WH/LH Daily Chart",
+        color: "blue",
         font: {
           size: 34,
         },
@@ -85,7 +83,7 @@ export default function DoughnutChart() {
 
   return (
     <div>
-      <Doughnut datasetIdKey='id' data={item} options={options} />
+      <Doughnut datasetIdKey="id" data={item} options={options} />
     </div>
   );
 }

@@ -38,3 +38,6 @@ Dashboard
 
 Logout
     clear localStorage
+
+
+          onClick={  localStorage.clear()}

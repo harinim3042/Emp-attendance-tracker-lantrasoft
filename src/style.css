@@ -1337,21 +1337,21 @@
 }
 
 .line canvas {
-  width: 25vw !important;
-  height: 40vh;
+  width: 38vw ;
+  height: 35vw;
   display: flex;
   justify-content: center;
 }
 
 .bar canvas {
-  width: 25vw !important;
-  height: 40vh;
+  width:66.5vw ;
+  /* height: 10vh; */
   display: flex;
   justify-content: center;
 }
 
 .donut canvas {
-  width: 20vw !important;
+  width: 20vw ;
   height: 40vh;
   display: flex;
   justify-content: center;
@@ -1468,4 +1468,13 @@ tr:last-child td:last-child {
 
 tr:last-child {
   border-color: transparent;
+}
+
+.white-font{
+  color: #fff;
+}
+.text-align-right{
+  display: flex;
+  text-align: right;
+   flex-direction: row-reverse;
 }

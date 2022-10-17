@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 function NavBar() {
@@ -22,7 +23,23 @@ function NavBar() {
   const userRole = userData['role'];
 
   navMenus = navMenus.filter((m) => m.role.includes(userRole));
+  let Logout = [
+    {
+      menu: '1',
+      label: 'LOGOUT',
+      route: '/',
+    },
+ 
+  ];
+
+
+  //   const handleClick = (event) => {
+  //   //Prevent page reload
+  //   // event.preventDefault();
   
+
+  // };
+
   return (
     <>
       <div className=" mt-n1  nav-bg align-items-center ">
@@ -44,23 +61,13 @@ function NavBar() {
           ))}
 
           <NavDropdown title={user_Name} id="UserName" >
-            <Nav.Item >
-            <Nav.Link href="/" className="border-none">LOGOUT</Nav.Link> 
+          {Logout.map((m) => (
+            <Nav.Item key={m.menu}>
+              <Nav.Link href={m.route} className="border-none" >{m.label}</Nav.Link>
             </Nav.Item>
+          ))}
           </NavDropdown>
-          {/* <Nav.Item>
-            <Nav.Link href="/LeaveApplication">LEAVE APPLICATION</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link href="/LeaveStatus">LEAVE STATUS</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link href="/LeaveApproval">LEAVE APPROVAL</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link href="/">LOGOUT</Nav.Link>
-          </Nav.Item> */}
-        </Nav>
+            </Nav>
       </div>
     </>
   );

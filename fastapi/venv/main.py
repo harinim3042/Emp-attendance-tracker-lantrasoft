@@ -512,7 +512,9 @@ async def get_employee_by_id(EmpId: int,date:date, floor: Union[int, None]=None)
     data1=cur.fetchall()
     whrs=datetime(1, 1, 1, 0, 0)
     # wsum=0
+    count=int(1)
     ans=[]
+    
     for row in data1:
         whrs=datetime(1, 1, 1, 0, 0)
         intime=row[0].time()
@@ -520,8 +522,11 @@ async def get_employee_by_id(EmpId: int,date:date, floor: Union[int, None]=None)
         whrs+=row[1]-row[0]
         # wsum+=(row[1]-row[0]).total_seconds()
         if floor:
-            temp = { 'Floor':floor,'InTime' : intime , 'OutTime' : outtime , 'duration' : whrs.time()}#,duration_sec' : wsum}
+            temp = { 'Sno':count,'Floor':floor,'InTime' : intime , 'OutTime' : outtime , 'duration' : whrs.time()}#,duration_sec' : wsum}
         else:
-             temp = { 'Floor':row[3],'InTime' : intime , 'OutTime' : outtime , 'duration' : whrs.time()}#,duration_sec' : wsum}
-        ans.append(temp)    
+             temp = { 'Sno':count,'Floor':row[2],'InTime' : intime , 'OutTime' : outtime , 'duration' : whrs.time()}#,duration_sec' : wsum}
+        count+=1  
+        ans.append(temp)  
+
+       
     return ans

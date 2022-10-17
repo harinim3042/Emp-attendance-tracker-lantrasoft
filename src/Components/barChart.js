@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
-const baseURL = 'http://localhost:4000/Dashboard/Attendance';
+const userData = JSON.parse(localStorage.getItem("userData"));
+const empId = userData["emp_id"];
+// const empId = 101;
+const baseURL = 'http://127.0.0.1:8000/getYearlyAttendaceByID?EmpId=' + empId + '&y=2022';
 
 function BarChart() {
   const [item, setItem] = useState({
     id: 1,
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Aug','Sep'],
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Aug','Sep','Oct'],
     datasets: [
       {
         label: ['Present'],
@@ -28,6 +31,7 @@ function BarChart() {
     ],
   })
   React.useEffect(() => {
+    const datas_m = [];
     const datas_p = [];
     const datas_a =[];
     fetch(baseURL)
@@ -35,13 +39,13 @@ function BarChart() {
       .then(json => {
         console.log("json", json)
         json.map((x) => {
-        
+          datas_m.push(x.Month),
           datas_p.push(x.Present),
           datas_a.push(x.Absent)
         })
         setItem({
           id: 2,
-          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Aug','Sep'],
+          labels: datas_m,
           datasets: [
             {
               label: ['Present'],

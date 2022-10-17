@@ -6,14 +6,16 @@ import Dashboard from "./Dashboard";
 import logo from "../Assets/attendance.gif";
 
 const loginUrl = "http://127.0.0.1:8000/login";
+
+
+
 export default function Login() {
   // React States
   const [isLoginSuccessful, setIsLoginSuccessful] = useState(false);
   const [EmpId, setEmpId] = useState("");
   const [password, setPassword] = useState("");
 
-  //localStorage.clear();
-
+  const removeUser = () => { localStorage.clear();};
   const errors = {
     uname: "Invalid Username",
     pass: "Invalid Password",
@@ -43,7 +45,7 @@ export default function Login() {
       .then((res) => res.json())
       .then((data) => {
         if (data.message) {
-          alert(data.message)
+          alert(data.message);
         } else {
           setIsLoginSuccessful(true);
           localStorage.setItem("userData", JSON.stringify(data));
@@ -53,16 +55,12 @@ export default function Login() {
   };
 
   const renderForm = (
-    <div className="chart-align my-10">
+    <div className="chart-align my-10" onLoad={removeUser}>
       <div className="chart-bg pt-8 py-1 pb-5">
         <Form responsive="true" className="mx-13" onSubmit={handleSubmit}>
           <h1 className="form-center"> LOGIN </h1>
           <h1 className="form-center ms-4">
-            {/* <img 
-            src='./Assets/attendance.gif'
-              width="220px"
-              height="220px"
-            /> */}
+         
             <img src={logo} alt={"logo"} width="220px" height="220px" />
           </h1>
 
