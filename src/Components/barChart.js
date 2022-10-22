@@ -79,8 +79,8 @@ const baseURL = 'http://127.0.0.1:8000/getYearlyAttendaceByID?EmpId=' + empId + 
       tooltip: {
         callbacks: {
           label: function(context) {
-            // return ` ${context.dataset.label} : ${context.formattedValue} days` 
-            return console.log(context)
+            return ` ${context.dataset.label} : ${context.formattedValue} days` 
+            // return console.log(context)
           },
         }
       },

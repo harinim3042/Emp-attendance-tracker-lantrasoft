@@ -11,7 +11,7 @@ import SideBarNavigation from "../Components/Navbar.js";
 const userData = JSON.parse(localStorage.getItem("userData"));
 const empId = userData["emp_id"];
 // const empId = 101;
-export default function LeaveApproval() {
+export default function Reports() {
   const [item, setItem] = useState([]);
   const [SelectFloor, setSelectFloor] = useState("All");
   const [SelectDate, setSelectDate] = useState([]);
@@ -103,7 +103,7 @@ export default function LeaveApproval() {
                     <td>{x.Floor}</td>
                     <td>{x.InTime}</td>
                     <td>{x.OutTime}</td>
-                    <td>{x.duration}</td>
+                    <td>{x.text}</td>
                   </tr>
                 ))
               ) : (

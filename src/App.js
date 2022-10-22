@@ -4,7 +4,6 @@ import Dashboard from './Pages/Dashboard';
 import HRDashboard from './Pages/HRDashboard';
 import Login from './Pages/Login';
 import Reports from './Pages/Reports';
-import Line from './Components/try.js';
 
 
 import { Chart, ArcElement, CategoryScale, LinearScale, PointElement, BarElement ,LineElement,Tooltip, Legend, Title  } from 'chart.js'
@@ -20,7 +19,6 @@ export default function App() {
             <Route path="/Dashboard" element={<Dashboard />} />
             <Route path="/HRDashboard" element={<HRDashboard />} />
             <Route path="/Reports" element={<Reports />} />
-            <Route path="/line" element={<Line />} />
 
           </Routes>
         </BrowserRouter>

@@ -568,19 +568,26 @@ async def get_employee_by_id(EmpId: int,date:date, floor: Union[int, None]=None)
     data1=cur.fetchall()
     whrs=datetime(1, 1, 1, 0, 0)
     # wsum=0
-    ans=[]
     count=int(1)
+    ans=[]
+    hr,min,sec=0,0,0
     for row in data1:
         whrs=datetime(1, 1, 1, 0, 0)
         intime=row[0].time()
         outtime=row[1].time()       
         whrs+=row[1]-row[0]
-        # wsum+=(row[1]-row[0]).total_seconds()
-        if floor:
-            temp = { 'Floor':floor,'InTime' : intime , 'OutTime' : outtime , 'duration' : whrs.time()}#,duration_sec' : wsum}
+        hr=(whrs.time()).hour
+        min=(whrs.time()).minute
+        sec=(whrs.time()).second
+        if hr==0:
+             str=f"{min} minutes {sec} seconds"
         else:
-             temp = { 'Sno':count,'Floor':row[2],'InTime' : intime , 'OutTime' : outtime , 'duration' : whrs.time()}#,duration_sec' : wsum}
-        count+=1
-        ans.append(temp)    
-   
+             str=f"{hr} hours {min} minutes {sec} seconds"
+        #wsum+=(row[1]-row[0]).total_seconds()
+        if floor:
+            temp = { 'Sno':count,'Floor':floor,'InTime' : intime , 'OutTime' : outtime , 'duration' : whrs.time(),'text' : str}#,duration_sec' : wsum}
+        else:
+             temp = { 'Sno':count,'Floor':row[2],'InTime' : intime , 'OutTime' : outtime , 'duration' : whrs.time(),'text' : str}#,duration_sec' : wsum}
+        count+=1  
+        ans.append(temp)
     return ans
