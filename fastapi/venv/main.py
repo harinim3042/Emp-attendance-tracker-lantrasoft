@@ -2,7 +2,7 @@ import psycopg2
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
 from typing import List, Dict,Union
-from datetime import datetime,date
+from datetime import datetime,date,timedelta
 import pandas as pd
 import numpy as np
 from fastapi.encoders import jsonable_encoder
@@ -40,6 +40,10 @@ async def startup():
 async def shutdown():
     await conn.commit()
     await conn.close()
+
+
+
+
 
 
 table_name1="employee"
@@ -350,19 +354,22 @@ async def get_employee_by_id(EmpId: int):
             else:
                 ldict[row[0].date()]+=(row[1]-row[0])
                 ldict_time[row[0].date()]+=(row[1]-row[0]).total_seconds()
-    ans = []   
-    j=0         
+    ans = []           
     for i in wdict:
         wdict[i]=wdict[i].time()
-        j+=1
-        ldict[i]=ldict[i].time()
+        if i in ldict:
+            ldict[i]=ldict[i].time()
+        else:
+            ldict[i]='00:00:00' 
+            ldict_time[i]=0   
         print("Date:",i)
         print("Working Hours:",wdict[i])
         print("Leisure Hours:",ldict[i])
         print("\n")
         temp={ 'Date' : i , 'workingHours': wdict_time[i],'leisureHours': ldict_time[i],'Working Hours' : wdict[i] , 'Leisure Hours' : ldict[i] }
         ans.append(temp)
-    return ans[-1]    
+
+    return ans[-1]   
 
 @app.get('/getAnalyticsByIDandDate')
 async def get_employee_by_id(EmpId: int, date:date):
@@ -484,6 +491,55 @@ async def get_employee_by_id(EmpId: int,y:int):
         ans.append(temp)
     return ans
 
+@app.get('/getWeeklyData')
+async def get_weekly_data(EmpId:int):
+    t0=date.today()
+    t0=str(t0)
+    print(t0)
+         # dict = {'Date':["2022-10-10"]}
+    dict = {'Date':[t0]}  
+         # converting the dictionary to a dataframe
+    df = pd.DataFrame.from_dict(dict)  
+        # converting the date to the required format
+    df['Date'] = pd.to_datetime(df['Date'], errors ='coerce')
+    df.astype('int64').dtypes  
+         # extracting the week from the date
+    weekNumber = df['Date'].dt.week
+    print(weekNumber)
+    def getDateRangeFromWeek(p_year,p_week):
+        firstdayofweek = datetime.strptime(f'{p_year}-W{int(p_week )- 1}-1', "%Y-W%W-%w").date()
+        lastdayofweek = firstdayofweek + timedelta(days=5)
+        return firstdayofweek, lastdayofweek
+         #Call function to get dates range 
+    firstdate, lastdate =  getDateRangeFromWeek('2022',weekNumber)
+    st=firstdate
+    delta=timedelta(days=1)
+    ans=[]
+    for i in range(1,6):
+        print(st)
+        cur.execute(f'SELECT "in_time","out_time","id","emp_id" FROM "{table_name3}" natural join "employee" where "emp_id"={EmpId} and DATE("in_time")=\'{st}\' and "id"!=4')
+        data1=cur.fetchall()
+        wsum=datetime(1, 1, 1, 0, 0)
+        wsum_time = 0
+        for row in data1:
+            wsum+=(row[1]-row[0])
+            wsum_time+=(row[1] - row[0]).total_seconds()
+        print(f'wsum = {wsum}')
+        print(wsum.time())
+        cur.execute(f'SELECT "in_time","out_time","id","emp_id" FROM "{table_name3}" natural join "employee" where "emp_id"={EmpId} and DATE("in_time")=\'{st}\' and "id"=4')
+        data2=cur.fetchall()
+        lsum=datetime(1, 1, 1, 0, 0)
+        lsum_time = 0
+        for row in data2:
+            lsum+=(row[1]-row[0])
+            lsum_time+=(row[1] - row[0]).total_seconds()
+        print(lsum.time())  
+        print(st.strftime("%A"))
+        temp = { 'Date' : st ,'Day': st.strftime("%A") ,'workingHours': wsum_time, 'leisureHours': lsum_time, 'Working Hours' : wsum.time() , 'Leisure Hours' : lsum.time()}
+        ans.append(temp)
+        st+=delta
+    return ans 
+
 
 # @app.get('/getAnalyticsByFloor')
 # async def get_employee_by_id(EmpId: int,date:date):
@@ -512,9 +568,8 @@ async def get_employee_by_id(EmpId: int,date:date, floor: Union[int, None]=None)
     data1=cur.fetchall()
     whrs=datetime(1, 1, 1, 0, 0)
     # wsum=0
-    count=int(1)
     ans=[]
-    
+    count=int(1)
     for row in data1:
         whrs=datetime(1, 1, 1, 0, 0)
         intime=row[0].time()
@@ -522,11 +577,10 @@ async def get_employee_by_id(EmpId: int,date:date, floor: Union[int, None]=None)
         whrs+=row[1]-row[0]
         # wsum+=(row[1]-row[0]).total_seconds()
         if floor:
-            temp = { 'Sno':count,'Floor':floor,'InTime' : intime , 'OutTime' : outtime , 'duration' : whrs.time()}#,duration_sec' : wsum}
+            temp = { 'Floor':floor,'InTime' : intime , 'OutTime' : outtime , 'duration' : whrs.time()}#,duration_sec' : wsum}
         else:
              temp = { 'Sno':count,'Floor':row[2],'InTime' : intime , 'OutTime' : outtime , 'duration' : whrs.time()}#,duration_sec' : wsum}
-        count+=1  
-        ans.append(temp)  
-
-       
+        count+=1
+        ans.append(temp)    
+   
     return ans

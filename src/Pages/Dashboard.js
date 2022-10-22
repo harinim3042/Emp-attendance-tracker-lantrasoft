@@ -6,30 +6,25 @@ import BarChart from '../Components/barChart';
 import BarNavigation from '../Components/Navbar.js';
 import ClockTime from '../Components/DisplayClock.js';
 export default function Dashboard() {
- // const userData = JSON.parse(localStorage.getItem("userData"));
+  const pageload = (event) => {
+    //Prevent page reload
+    event.preventDefault();};
   return (
-    <>
+    <div onLoad={pageload}>
       <BarNavigation />
-      {/* <div className="chart-align mt-2 mb-n2">
-        <div className="chart-bg px-1 mx-13 py-4 my-2">
-
-          <h1>{Username}</h1>
-        </div>
-        <div className="chart-bg px-1 mx-13 py-4 my-2">
-          <h1><ClockTime /></h1>
-        </div>
-      </div> */}
-      <div className="chart-align container-fluid my-9 ">
-        <div className="chart-bg donut px-6 mx-4 py-6 my-2 ">
+      <h1 className="form-center white-font pt-5">MY DASHBOARD</h1>
+      <div className=" text-align-right white-font mt-n10 me-3">< ClockTime /></div>
+      <div className="chart-align container-fluid mt-2 mb-7 ">
+        <div className="chart-bg donut px-9 mx-4 py-5 mb-2 ">
           <DoughnutChart />
         </div>
-        <div className="chart-bg line px-5 mx-3 py-6 my-2 ">
+        <div className="chart-bg line px-6 mx-3 py-6 mb-2 ">
           <LineChart />
         </div>
-        <div className="chart-bg bar px-5 mx-13 py-6 my-2 ">
+        <div className="chart-bg bar px-8 py-6 my-4 ">
           <BarChart />
         </div>
       </div>
-    </>
+    </div>
   );
 }

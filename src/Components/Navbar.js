@@ -9,30 +9,37 @@ function NavBar() {
       menu: '1',
       label: 'HOME',
       route: '/Dashboard',
-      role: ['Associate'],
+      // role: ['Senior Associate','Associate','Senior Analyst','Analyst','HR'],
     },
     {
       menu: '2',
       label: 'REPORTS',
       route: '/Reports',
-      role: ['Associate'],
+      // role: ['Associate'],
     },
   ];
   const userData = JSON.parse(localStorage.getItem("userData"));
   const user_Name = userData['name'];
   const userRole = userData['role'];
 
-  navMenus = navMenus.filter((m) => m.role.includes(userRole));
+  
   let Logout = [
     {
       menu: '1',
+      label: 'HR Dashboard',
+      route: '/HRDashboard',
+      role: ['HR'],
+    },
+    {
+      menu: '2',
       label: 'LOGOUT',
       route: '/',
+      role: ['Senior Associate','Associate','Senior Analyst','Analyst','HR'],
     },
  
   ];
 
-
+  Logout = Logout.filter((m) => m.role.includes(userRole));
   //   const handleClick = (event) => {
   //   //Prevent page reload
   //   // event.preventDefault();

@@ -1,15 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Doughnut } from "react-chartjs-2";
 
-export default function DoughnutChart() {
-  const userData = JSON.parse(localStorage.getItem("userData"));
-  const empId = userData["emp_id"];
-  // const empId = 101;
-  const baseURL =
-    "http://127.0.0.1:8000/getAnalyticsByIDandDate?EmpId=" +
-    empId +
-    "&date=2022-10-03";
+const userData = JSON.parse(localStorage.getItem("userData"));
 
+const DoughnutChart = ({ empId = userData["emp_id"] }) => {
   const [item, setItem] = useState({
     id: 1,
     labels: ["Working Hours", "Leisure Hours"],
@@ -26,12 +20,19 @@ export default function DoughnutChart() {
     ],
   });
 
-  React.useEffect(() => {
+  
+  useEffect(() => {
+    const baseURL =
+    "http://127.0.0.1:8000/getAnalyticsByIDandDate?EmpId=" +
+    empId +
+    "&date=2022-10-03";
     const datas = [];
     const datas_lbl = [];
     fetch(baseURL)
       .then((res) => res.json())
       .then((x) => {
+        console.log("json", x)
+
         datas_lbl.push(x["Working Hours"]);
         datas_lbl.push(x["Leisure Hours"]);
         datas.push(x["workingHours"]);
@@ -49,25 +50,30 @@ export default function DoughnutChart() {
               backgroundImage:
                 'lightblue url("https://www.chartjs.org/img/chartjs-logo.svgf") no-repeat fixed center',
             },
+          
           ],
         });
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [empId]);
 
   const options = {
     plugins: {
       tooltip: {
         callbacks: {
-          label: function(context) {
-             return `${context.label} : ${context.dataset.labels[context.dataIndex]}`
+          label: function (context) {
+            return `${context.label} : ${
+              context.dataset.labels[context.dataIndex]
+            }`;
+            // return console.log(context);
           },
-        }
+        },
       },
 
       title: {
         display: true,
-        text: "WH/LH Daily Chart",
+        // text: "Working Hours vs Leisure Hours Daily ",
+        text: ['Working Hours vs','Leisure Hours Daily'],
         color: "blue",
         font: {
           size: 34,
@@ -86,4 +92,6 @@ export default function DoughnutChart() {
       <Doughnut datasetIdKey="id" data={item} options={options} />
     </div>
   );
-}
+};
+
+export default DoughnutChart;

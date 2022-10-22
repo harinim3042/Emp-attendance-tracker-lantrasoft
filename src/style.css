@@ -1478,3 +1478,8 @@ tr:last-child {
   text-align: right;
    flex-direction: row-reverse;
 }
+.text-align-left{
+  display: flex;
+  text-align: left;
+   flex-direction: row-reverse;
+}

@@ -40,4 +40,14 @@ Logout
     clear localStorage
 
 
-          onClick={  localStorage.clear()}
+        {Number(EmpId) ? ( <DoughnutChart empId = {EmpId}/> ): "nochart"}
+          tooltip: {
+        callbacks: {
+          label: function(context) {
+               return `${context.label} : ${
+              context.dataset.labels[context.dataIndex]
+            }`;
+            // return console.log(context);
+          },
+        }
+      },

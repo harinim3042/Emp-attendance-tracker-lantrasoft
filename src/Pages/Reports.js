@@ -9,33 +9,35 @@ import Row from "react-bootstrap/Row";
 import SideBarNavigation from "../Components/Navbar.js";
 
 const userData = JSON.parse(localStorage.getItem("userData"));
-//const empId = userData["emp_id"];
-const empId = 101;
+const empId = userData["emp_id"];
+// const empId = 101;
 export default function LeaveApproval() {
   const [item, setItem] = useState([]);
   const [SelectFloor, setSelectFloor] = useState("All");
   const [SelectDate, setSelectDate] = useState([]);
-  const [isSubmitSuccessful, setIsSubmitSuccessful] = useState(false);
 
   // 2 useState - floor, date
 
-  React.useEffect(() => {}, []);
+  React.useEffect(() => {}, [empId]);
   const handleSubmit = (event) => {
     //Prevent page reload
     event.preventDefault();
 
     //console.log(payload);
-    let baseURL = "http://127.0.0.1:8000/getAllAnalyticsByFloor?EmpId=" + empId + "&date=" + SelectDate;
+    let baseURL =
+      "http://127.0.0.1:8000/getAllAnalyticsByFloor?EmpId=" +
+      empId +
+      "&date=" +
+      SelectDate;
 
-    if (SelectFloor.toLowerCase() !== 'all') {
-      baseURL += "&floor=" + SelectFloor
+    if (SelectFloor.toLowerCase() !== "all") {
+      baseURL += "&floor=" + SelectFloor;
     }
 
     fetch(baseURL)
       .then((res) => res.json())
       .then((res) => setItem(res))
       .catch((err) => console.log(err));
-    
   };
   const renderTable = (
     <>
@@ -43,7 +45,7 @@ export default function LeaveApproval() {
       <div>
         <h1 className="form-center white-font pt-5">EMPLOYEE LOGS</h1>
         <div className="px-5 pt-2 ">
-          <div className=" white-font text-align-right ">
+          <div className=" white-font text-align-left ">
             <Form onSubmit={handleSubmit}>
               <Row className="mb-3 ">
                 <Col sm={4}>
@@ -82,7 +84,7 @@ export default function LeaveApproval() {
             </Form>
           </div>
           <Table responsive hover variant="dark" className="py-5 pe-5 ps-5">
-            <tbody>
+            <thead>
               <tr>
                 <th>#</th>
 
@@ -91,32 +93,31 @@ export default function LeaveApproval() {
                 <th>OUT TIME</th>
                 <th>DURATION</th>
               </tr>
-              {item.map((x) => (
-                <tr key={x.Sno}>
-                  <td>{x.Sno}</td>
+            </thead>
+            <tbody>
+              {item.length > 0 ? (
+                item.map((x) => (
+                  <tr key={x.Sno}>
+                    <td>{x.Sno}</td>
 
-                  <td>{x.Floor}</td>
-                  <td>{x.InTime}</td>
-                  <td>{x.OutTime}</td>
-                  <td>{x.duration}</td>
+                    <td>{x.Floor}</td>
+                    <td>{x.InTime}</td>
+                    <td>{x.OutTime}</td>
+                    <td>{x.duration}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="5" style={{textAlign: 'center'}}>
+                    NO RECORD
+                  </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </Table>
         </div>
       </div>
     </>
   );
-  return (
-    <div>
-      {isSubmitSuccessful
-        ? (baseURL =
-            "http://127.0.0.1:8000/getAllAnalyticsByFloor?EmpId= " +
-            empId +
-            "&date=" +
-            Form.Select.SelectDate +
-            "")
-        : renderTable}
-    </div>
-  );
+  return <div>{renderTable}</div>;
 }

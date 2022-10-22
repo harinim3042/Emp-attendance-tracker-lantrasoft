@@ -14,7 +14,7 @@ function DisplayClock() {
           year: 'numeric',
         
         })}
-        <br />
+       <hr/>
         {dateState.toLocaleString('en-US', {
           hour: 'numeric',
           minute: 'numeric',
