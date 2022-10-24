@@ -5,6 +5,13 @@ const userData = JSON.parse(localStorage.getItem("userData"));
 // const empId = userData["emp_id"];
 // const empId = 101;
 
+function dd_mm_yyyy(date){
+          
+
+  const [year, month, day] = date.split('-');
+  
+  const result = [ day,month, year].join('-');
+return result;}
 
 const LineChart = ({ empId = userData['emp_id'] }) => {
   const [item, setItem] = useState({
@@ -31,6 +38,8 @@ const LineChart = ({ empId = userData['emp_id'] }) => {
     const datas_wh = [];
     const datas_lh =[];
     const date =[];
+
+
     const lbl_wh=[];
     const lbl_lh=[];
     const baseURL = "http://127.0.0.1:8000/getWeeklyData?EmpId=" + empId + "";
@@ -40,7 +49,8 @@ const LineChart = ({ empId = userData['emp_id'] }) => {
       .then(json => {
         console.log("json", json)
         json.map((x) => {
-          date.push(x.Date);
+          date.push(dd_mm_yyyy(x.Date)),
+       
          lbl_wh.push(x["Working Hours"]),
          lbl_lh.push(x["Leisure Hours"])
           datas_wh.push(x.workingHours),
@@ -112,24 +122,19 @@ const LineChart = ({ empId = userData['emp_id'] }) => {
     //   max: 10000,
       ticks: {
         callback: function(value) {
-            const result = new Date(value * 1000).toISOString().slice(11, 19);
+            const result = new Date(value * 1000).toISOString().slice(11, 16);
             // return `${        context.dataset.label          } : ${result}`;
             return  result},   
         // stepSize: 3600
-        stepSize: 60 * 60
+        stepSize: 30 * 60 ,
+        beginAtZero: true
       }
+    },
+    x: {
+      beginAtZero: true,
     }
   },
-//   tooltips: {
-//     callbacks: {
-//       label: function(tooltipItem, data) {
 
-//             return (tooltipItem.yLabel)
-            
-//         // return data.datasets[tooltipItem.datasetIndex].label + ': ' + epoch_to_hh_mm_ss(tooltipItem.yLabel)
-//       }
-//     }
-//   },
  
   }
 

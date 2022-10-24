@@ -12,40 +12,50 @@ import LineChart from "../Components/Linechart.js";
 import BarChart from "../Components/barChart";
 
 const userData = JSON.parse(localStorage.getItem("userData"));
-
+//
 const Reports = () => {
   const [item, setItem] = useState([]);
+  const [SelectEmployeeID, setSelectEmployeeID] = useState([]);
+
   const [SelectFloor, setSelectFloor] = useState("All");
-  const [SelectDate, setSelectDate] = useState([]);
-  
+  const [SelectDate, setSelectDate] = useState();
+  const [tempSelectDate, setTempSelectDate] = useState();
+
   const [EmpId, setEmpId] = useState(userData["emp_id"]);
   const [tempEmpId, setTempEmpId] = useState(userData["emp_id"]);
 
   // 2 useState - floor, date
 
-
   const handleSubmit = (event) => {
     //Prevent page reload
     event.preventDefault();
     setEmpId(tempEmpId);
+    setSelectDate(tempSelectDate);
     //console.log(payload);
   };
 
-  React.useEffect(() => { 
+  React.useEffect(() => {
     let baseURL =
-    "http://127.0.0.1:8000/getAllAnalyticsByFloor?EmpId=" +
-    EmpId +
-    "&date=" +
-    SelectDate;
+      "http://127.0.0.1:8000/getAllAnalyticsByFloor?EmpId=" +
+      EmpId +
+      "&date=" +
+      SelectDate;
 
-  if (SelectFloor.toLowerCase() !== "all") {
-    baseURL += "&floor=" + SelectFloor;
-  }
+    if (SelectFloor.toLowerCase() !== "all") {
+      baseURL += "&floor=" + SelectFloor;
+    }
+    fetch(baseURL)
+      .then((res) => res.json())
+      .then((res) => setItem(res))
+      .catch((err) => console.log(err));
 
-  fetch(baseURL)
-    .then((res) => res.json())
-    .then((res) => setItem(res))
-    .catch((err) => console.log(err));}, [EmpId,SelectDate,SelectFloor]);
+    let empURL = "http://127.0.0.1:8000/getAllEmployees";
+
+    fetch(empURL)
+      .then((res) => res.json())
+      .then((res) => setSelectEmployeeID(res))
+      .catch((err) => console.log(err));
+  }, [EmpId, SelectDate, SelectFloor]);
 
   const renderTable = (
     <>
@@ -66,11 +76,9 @@ const Reports = () => {
                     >
                       <option>Select Employee</option>
 
-                      <option>101</option>
-                      <option>102</option>
-                      <option>103</option>
-                      <option>104</option>
-                      <option>105</option>
+                      {SelectEmployeeID.map((x) => (
+                        <option key={x.emp_id}>{x.emp_id}</option>
+                      ))}
                     </Form.Select>
                   </Form.Group>
                 </Col>
@@ -96,7 +104,7 @@ const Reports = () => {
                       type="date"
                       name="SelectDate"
                       value={SelectDate}
-                      onChange={(e) => setSelectDate(e.target.value)}
+                      onChange={(e) => setTempSelectDate(e.target.value)}
                       required
                     />
                   </Form.Group>

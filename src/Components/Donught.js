@@ -22,21 +22,26 @@ const DoughnutChart = ({ empId = userData["emp_id"] }) => {
 
   
   useEffect(() => {
-    const baseURL =
-    "http://127.0.0.1:8000/getAnalyticsByIDandDate?EmpId=" +
-    empId +
-    "&date=2022-10-03";
+    const baseURL =    'http://127.0.0.1:8000/getAnalyticsByID2?EmpId=' +    empId + ''; 
     const datas = [];
     const datas_lbl = [];
+    const date = [];
+    
     fetch(baseURL)
       .then((res) => res.json())
       .then((x) => {
         console.log("json", x)
+        console.log("DonutDate", x.Date)
+        const date = x.Date;
 
+        const [year, month, day] = date.split('-');
+        
+        const result = [day,month,  year].join('/');
         datas_lbl.push(x["Working Hours"]);
         datas_lbl.push(x["Leisure Hours"]);
         datas.push(x["workingHours"]);
         datas.push(x["leisureHours"]);
+        localStorage.setItem("DonutDate", result);
         setItem({
           labels: ["Working Hours", "Leisure Hours"],
           datasets: [
@@ -73,10 +78,11 @@ const DoughnutChart = ({ empId = userData["emp_id"] }) => {
       title: {
         display: true,
         // text: "Working Hours vs Leisure Hours Daily ",
-        text: ['Working Hours vs','Leisure Hours Daily'],
+        text: ['Working Hours vsLeisure Hours',' Daily: '+ localStorage.getItem("DonutDate")],
         color: "blue",
+      
         font: {
-          size: 34,
+          size: 24,
         },
         responsive: true,
         animation: {

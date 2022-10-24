@@ -371,6 +371,41 @@ async def get_employee_by_id(EmpId: int):
 
     return ans[-1]   
 
+
+@app.get('/getAnalyticsByID2')
+async def get_employee_by_id(EmpId: int):
+    test_date=date.today()
+    diff = 1
+    if test_date.weekday() == 0:
+        diff = 3
+    elif test_date.weekday() == 6:
+        diff = 2
+    else :
+        diff = 1
+    tdate = test_date - timedelta(days=diff)
+    print(tdate)
+    cur.execute(f'SELECT "in_time","out_time","id","emp_id" FROM "{table_name3}" natural join "employee" where "emp_id"={EmpId} and DATE("in_time")=\'{tdate}\' and "id"!=4')
+    data1=cur.fetchall()
+    wsum=datetime(1, 1, 1, 0, 0)
+    wsum_time = 0
+    for row in data1:
+        wsum+=(row[1]-row[0])
+        wsum_time+=(row[1] - row[0]).total_seconds()
+
+    print(f'wsum = {wsum}')
+    print(wsum.time())
+    cur.execute(f'SELECT "in_time","out_time","id","emp_id" FROM "{table_name3}" natural join "employee" where "emp_id"={EmpId} and DATE("in_time")=\'{tdate}\' and "id"=4')
+    data2=cur.fetchall()
+    lsum=datetime(1, 1, 1, 0, 0)
+    lsum_time = 0
+    for row in data2:
+        lsum+=(row[1]-row[0])
+        lsum_time+=(row[1] - row[0]).total_seconds()
+    print(lsum.time())  
+    temp = { 'Date' : tdate , 'workingHours': wsum_time, 'leisureHours': lsum_time, 'Working Hours' : wsum.time() , 'Leisure Hours' : lsum.time()}
+    return temp
+
+
 @app.get('/getAnalyticsByIDandDate')
 async def get_employee_by_id(EmpId: int, date:date):
     cur.execute(f'SELECT "in_time","out_time","id","emp_id" FROM "{table_name3}" natural join "employee" where "emp_id"={EmpId} and DATE("in_time")=\'{date}\' and "id"!=4')
