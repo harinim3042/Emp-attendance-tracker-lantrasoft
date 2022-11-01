@@ -32,6 +32,24 @@ function NavBar() {
     },
     {
       menu: '2',
+      label: 'LEAVE APPLICATION',
+      route: '/LeaveApplication',
+      role: ['Senior Associate','Associate','Senior Analyst','Analyst'],
+    },
+    {
+      menu: '3',
+      label: 'LEAVE STATUS',
+      route: '/LeaveStatus',
+      role: ['Senior Associate','Associate','Senior Analyst','Analyst'],
+    },
+    {
+      menu: '4',
+      label: 'LEAVE APPROVAL',
+      route: '/LeaveApproval',
+      role: ['HR'],
+    },
+    {
+      menu: '5',
       label: 'LOGOUT',
       route: '/',
       role: ['Senior Associate','Associate','Senior Analyst','Analyst','HR'],

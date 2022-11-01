@@ -2,18 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 
 const userData = JSON.parse(localStorage.getItem("userData"));
-// const empId = userData["emp_id"];
-// const empId = 101;
+// const empId = userData["emp_id"]
+// const empId = 101
 
-function dd_mm_yyyy(date){
-          
 
-  const [year, month, day] = date.split('-');
-  
-  const result = [ day,month, year].join('-');
-return result;}
-
-const LineChart = ({ empId = userData['emp_id'] }) => {
+const LineChart = ({ empId = userData["emp_id"] }) => {
   const [item, setItem] = useState({
     id: 1,
     labels: ["Mon", "Tue", "Wed", "Thurs", "Fri"],
@@ -34,6 +27,14 @@ const LineChart = ({ empId = userData['emp_id'] }) => {
     ],
   });
 
+  function dd_mm_yyyy(date){
+          
+
+    const [year, month, day] = date.split('-');
+    
+    const result = [ day,month, year].join('-');
+  return result;
+  }
   useEffect(() => {
     const datas_wh = [];
     const datas_lh =[];
@@ -100,9 +101,9 @@ const LineChart = ({ empId = userData['emp_id'] }) => {
       title: {
         display: true,
         text: "Working Hours vs Leisure Hours Weekly ",
-        color: "blue",
+        color: "#cb8e50cf",
         font: {
-          size: 34,
+          size: 24,
         },
 
         responsive: true,

@@ -88,9 +88,10 @@ const baseURL = 'http://127.0.0.1:8000/getYearlyAttendaceByID?EmpId=' + empId + 
         display: true,
 
         text: 'Yearly Attendance '+currentYear +'',
-        color: 'blue',
+        color: "#cb8e50cf",
+
         font: {
-          size: 34,
+          size: 24,
         },
 
         responsive: true,

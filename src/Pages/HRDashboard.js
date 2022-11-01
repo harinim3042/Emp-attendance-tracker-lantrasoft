@@ -77,7 +77,7 @@ const Reports = () => {
                       <option>Select Employee</option>
 
                       {SelectEmployeeID.map((x) => (
-                        <option key={x.emp_id}>{x.emp_id}</option>
+                        <option key={x.emp_id}>{x.emp_id} - {x.name}</option>
                       ))}
                     </Form.Select>
                   </Form.Group>

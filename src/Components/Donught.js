@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Doughnut } from "react-chartjs-2";
 
 const userData = JSON.parse(localStorage.getItem("userData"));
+// const empId = 101;
 
 const DoughnutChart = ({ empId = userData["emp_id"] }) => {
   const [item, setItem] = useState({
@@ -74,15 +75,17 @@ const DoughnutChart = ({ empId = userData["emp_id"] }) => {
           },
         },
       },
+  
 
       title: {
         display: true,
         // text: "Working Hours vs Leisure Hours Daily ",
-        text: ['Working Hours vsLeisure Hours',' Daily: '+ localStorage.getItem("DonutDate")],
-        color: "blue",
+        text: ['Working Hours vs Leisure Hours',' Daily', localStorage.getItem("DonutDate")],
+        color: "#cb8e50cf",
+
       
         font: {
-          size: 24,
+          size: 22,
         },
         responsive: true,
         animation: {

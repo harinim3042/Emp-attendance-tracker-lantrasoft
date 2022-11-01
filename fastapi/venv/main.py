@@ -1,7 +1,8 @@
+from email import message
 import psycopg2
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
-from typing import List, Dict,Union
+from typing import List, Dict, Union
 from datetime import datetime,date,timedelta
 import pandas as pd
 import numpy as np
@@ -47,6 +48,11 @@ async def shutdown():
 
 
 table_name1="employee"
+
+class ErrorResponse:
+    status = False 
+    message = ''
+
 class employee(BaseModel):
     emp_id:int = Field(..., example=1001)
     name: str = Field(..., example="Manjot Singh")
@@ -69,18 +75,28 @@ async def all_employees():
     return get_data_as_json(cur.fetchall())
 
 @app.get('/getEmployeeByID', response_model = List[employee])
-async def get_employee_by_id(EmpId: int):
+async def getEmployeeByID(EmpId: int):
     cur.execute(f'SELECT * FROM "{table_name1}" where "emp_id"={EmpId}')
     return get_data_as_json(cur.fetchall())
 
 @app.post('/registerEmployee', response_model = List[employee])
 async def register_employee(employee : employee):
-    cur.execute(f'INSERT INTO "{table_name1}"("emp_id", "name", "tag_id", "role_id") VALUES(%s, %s, %s, %s)', 
-    (employee.emp_id, employee.name, employee.tag_id, employee.role_id))
+    print(employee)
 
-    conn.commit()
+    try:
+        cur.execute(f'INSERT INTO "{table_name1}"("emp_id", "name", "tag_id", "role_id") VALUES(%s, %s, %s, %s)', 
+        (employee.emp_id, employee.name, employee.tag_id, employee.role_id))
+        conn.commit()
+    except psycopg2.errors.UniqueViolation as e:
+        # return {
+        #     "success": False,
+        #     "message": e
+        # }
+        print(e)
+        raise HTTPException(status_code=500, detail="Employee ID Already Exists")
+        
 
-    return await get_employee_by_id(employee.EmpId)
+    return await getEmployeeByID(employee.emp_id)
     
 @app.put('/updaterEmployeeData', response_model = List[employee])
 async def update_employee_data(EmpId: int, data_changed : Update_Employee_Data):
@@ -88,11 +104,11 @@ async def update_employee_data(EmpId: int, data_changed : Update_Employee_Data):
     (data_changed.name, data_changed.tag_id, data_changed.role_id, EmpId))
 
     conn.commit()
-    return await get_employee_by_id(EmpId)
+    return await getEmployeeByID(EmpId)
 
 @app.delete('/employeeDelete/{EmpId}')
 def delete_employee(EmpId: int):
-    # data = get_employee_by_id(id)
+    # data = getEmployeeByID(id)
     cur.execute(f'DELETE FROM "{table_name1}" WHERE "emp_id" = %s', (EmpId,))
     conn.commit()
     return "Employee with " + str(EmpId) + " is deleted"    
@@ -279,7 +295,7 @@ def get_data_as_json3(lt):
 
 
 @app.get('/getAnalyticsByID')
-async def get_employee_by_id(EmpId: int):
+async def getAnalyticsByID(EmpId: int):
     cur.execute(f'SELECT "in_time","out_time","id","emp_id" FROM "{table_name3}" natural join "employee" where "emp_id"={EmpId} and "id"!=4')
     data1=cur.fetchall()
     wdict={}
@@ -323,7 +339,7 @@ async def get_employee_by_id(EmpId: int):
     return ans
     
 @app.get('/getLatestAnalyticsByID')
-async def get_employee_by_id(EmpId: int):
+async def getLatestAnalyticsByID(EmpId: int):
     cur.execute(f'SELECT "in_time","out_time","id","emp_id" FROM "{table_name3}" natural join "employee" where "emp_id"={EmpId} and "id"!=4')
     data1=cur.fetchall()
     wdict={}
@@ -373,7 +389,7 @@ async def get_employee_by_id(EmpId: int):
 
 
 @app.get('/getAnalyticsByID2')
-async def get_employee_by_id(EmpId: int):
+async def getAnalyticsByID2(EmpId: int):
     test_date=date.today()
     diff = 1
     if test_date.weekday() == 0:
@@ -407,7 +423,7 @@ async def get_employee_by_id(EmpId: int):
 
 
 @app.get('/getAnalyticsByIDandDate')
-async def get_employee_by_id(EmpId: int, date:date):
+async def getAnalyticsByIDandDate(EmpId: int, date:date):
     cur.execute(f'SELECT "in_time","out_time","id","emp_id" FROM "{table_name3}" natural join "employee" where "emp_id"={EmpId} and DATE("in_time")=\'{date}\' and "id"!=4')
     data1=cur.fetchall()
     wsum=datetime(1, 1, 1, 0, 0)
@@ -431,7 +447,7 @@ async def get_employee_by_id(EmpId: int, date:date):
     return temp
 
 @app.get('/getAttendaceByID')
-async def get_employee_by_id(EmpId: int,m:int,y:int):
+async def getAttendaceByID(EmpId: int,m:int,y:int):
     cur.execute(f'SELECT DISTINCT DATE("in_time") FROM "{table_name3}" natural join "employee" where "emp_id"={EmpId}')
     data=pd.DataFrame(cur.fetchall(),columns=['date'])
     leap = 0
@@ -473,7 +489,7 @@ async def get_employee_by_id(EmpId: int,m:int,y:int):
     return temp
 
 @app.get('/getYearlyAttendaceByID')
-async def get_employee_by_id(EmpId: int,y:int):
+async def getYearlyAttendaceByID(EmpId: int,y:int):
     cur.execute(f'SELECT DISTINCT DATE("in_time") FROM "{table_name3}" natural join "employee" where "emp_id"={EmpId}')
     data=pd.DataFrame(cur.fetchall(),columns=['date'])
     today = datetime.now()
@@ -595,7 +611,7 @@ async def get_weekly_data(EmpId:int):
 #         count+=1
 #     return temp
 @app.get('/getAllAnalyticsByFloor')
-async def get_employee_by_id(EmpId: int,date:date, floor: Union[int, None]=None):
+async def getAllAnalyticsByFloor(EmpId: int,date:date, floor: Union[int, None]=None):
     if floor:
          cur.execute(f'SELECT "in_time","out_time","id","emp_id" FROM "{table_name3}" natural join "employee" where "emp_id"={EmpId} and DATE("in_time")=\'{date}\' and "id"={floor}')
     else:
@@ -626,3 +642,18 @@ async def get_employee_by_id(EmpId: int,date:date, floor: Union[int, None]=None)
         count+=1  
         ans.append(temp)
     return ans
+
+
+table_name4="employee_role"
+
+def get_data_as_json3(lt):
+    ans = []
+    for row in lt:
+        temp = {  'role_id': row[0], 'role' : row[1],}
+        ans.append(temp)
+    return ans
+
+@app.get('/getEmployeesRole')
+async def employees_role():
+    cur.execute(f'SELECT * FROM "{table_name4}"')
+    return get_data_as_json3(cur.fetchall())

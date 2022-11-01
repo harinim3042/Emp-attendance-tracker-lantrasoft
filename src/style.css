@@ -1329,11 +1329,14 @@
 }
 
 .chart-bg {
-  background: rgb(201, 214, 255);
+  /* background: rgb(201, 214, 255);
   background: -webkit-linear-gradient(to right, #e2e2e2, #c9d6ff);
-  background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+  background: linear-gradient(to right, #e2e2e2, #c9d6ff); */
+  BACKGROUND-COLOR: aliceblue;
   border: #c9d6ff 2px;
   border-radius: 1.5em;
+  /* box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset; */
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 .chart-bg:hover{
   /* box-shadow: rgba(180, 179, 179, 0.24) 21px 13px 28px; */
@@ -1382,7 +1385,9 @@
       rgb(52, 138, 199, 0.89),
       rgb(116, 116, 191, 0.7)); */
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ 
-  background: #2b1c65
+  /* background: #2b1c65 */
+  /* background: #f2f6fb; */
+  background: #0d6efd40;
 }
 
 .nav-tabs .nav-item.show .nav-link,
@@ -1451,7 +1456,9 @@
 th {
   background-color: rgb(99, 70, 126) !important;
 }
-
+th :h{
+  background-color: rgb(99, 70, 126) !important;
+}
 
 th:first-child {
   border-top-left-radius: 10px !important;
