@@ -9,8 +9,8 @@ import Row from "react-bootstrap/Row";
 import SideBarNavigation from "../Components/Navbar.js";
 
 const userData = JSON.parse(localStorage.getItem("userData"));
-const empId = userData["emp_id"];
-// const empId = 101;
+// const empId = userData["emp_id"];
+const empId = 101;
 export default function Reports() {
   const [item, setItem] = useState([]);
   const [SelectFloor, setSelectFloor] = useState("All");

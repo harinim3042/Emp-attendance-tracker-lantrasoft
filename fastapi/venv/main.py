@@ -68,11 +68,19 @@ def get_data_as_json(lt):
         temp = { 'emp_id' : row[0], 'name': row[1], 'tag_id': row[2], 'role_id': row[3] }
         ans.append(temp)
     return ans
+def get_data_as_json4(lt):
+    ans = []
+    for row in lt:
+        temp = { 'role_id' : row[0], 'role': row[1], 'emp_id': row[2], 'name': row[3], 'tag_id': row[4], }
+        ans.append(temp)
+    return ans
 
 @app.get('/getAllEmployees')
-async def all_employees():
-    cur.execute(f'SELECT * FROM "{table_name1}"')
-    return get_data_as_json(cur.fetchall())
+async def getAllEmployees():
+    # cur.execute(f'SELECT * FROM "{table_name1}"')
+    cur.execute(f'SELECT * from (SELECT * from "employee" natural join "{table_name4}") as X natural join "employee_role" ')
+
+    return get_data_as_json4(cur.fetchall())
 
 @app.get('/getEmployeeByID', response_model = List[employee])
 async def getEmployeeByID(EmpId: int):
@@ -98,7 +106,7 @@ async def register_employee(employee : employee):
 
     return await getEmployeeByID(employee.emp_id)
     
-@app.put('/updaterEmployeeData', response_model = List[employee])
+@app.put('/updateEmployeeData', response_model = List[employee])
 async def update_employee_data(EmpId: int, data_changed : Update_Employee_Data):
     cur.execute(f'UPDATE "{table_name1}" SET "name" = %s, "tag_id" = %s, "role_id" = %s WHERE "emp_id" = %s', 
     (data_changed.name, data_changed.tag_id, data_changed.role_id, EmpId))

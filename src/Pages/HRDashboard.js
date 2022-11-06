@@ -72,7 +72,7 @@ const Reports = () => {
                     <Form.Label>Select Employee</Form.Label>
                     <Form.Select
                       name="SelectEmployee"
-                      onChange={(e) => setTempEmpId(e.target.value)}
+                      onChange={(e) => setTempEmpId(e.target.value.slice(0,3))}
                     >
                       <option>Select Employee</option>
 

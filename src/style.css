@@ -1482,9 +1482,7 @@ tr:last-child {
   border-color: transparent;
 }
 
-.white-font{
-  color: #fff;
-}
+
 .text-align-right{
   display: flex;
   text-align: right;

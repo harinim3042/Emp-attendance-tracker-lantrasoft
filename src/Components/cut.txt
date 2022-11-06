@@ -52,3 +52,98 @@ Logout
         }
       },
 
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title className="form-center">EMPLOYEE DETAILS</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form responsive="true" className="mx-13" onSubmit={handleSubmit}>
+            <h1 className="form-center"> </h1>
+            <Row className="mb-3">
+              <Form.Group as={Col} controlId="formGridCity">
+                <div className="mb-3 ms-6 ">
+                  <Form.Label>
+                    <b>EMPLOYEE ID</b>
+                  </Form.Label>
+                  <div className="mb-3 ">
+                    <Form.Control
+                      type="number"
+                      placeholder="Enter Employee ID"
+                      name="EmpId"
+                      value={EmpId}
+                      onChange={(e) => setEmpId(e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="mb-3 ms-6">
+                  <Form.Label>
+                    <b>EMPLOYEE NAME</b>
+                  </Form.Label>
+                  <div className="mb-3 ">
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter Employee Name"
+                      name="empName"
+                      value={empName}
+                      onChange={(e) => setEmpName(e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="mb-3 ms-6">
+                  <Form.Label>
+                    <b>EMPLOYEE TAG ID</b>
+                  </Form.Label>
+                  <div className="mb-3 ">
+                    <Form.Control
+                      type="number"
+                      placeholder="Enter Employee Tag Id"
+                      name="tagId"
+                      value={tagId}
+                      onChange={(e) => setTagId(e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>
+              </Form.Group>
+            </Row>
+            <Row className="mb-3">
+              <Form.Group as={Col} controlId="formGridCity">
+                <div className="mb-3 ms-6">
+                  <Form.Label>
+                    <b>EMPLOYEE ROLE ID</b>
+                  </Form.Label>
+                  <div className="mb-3 ">
+                    <Form.Control
+                      type="number"
+                      placeholder="Enter Employee ROLE ID"
+                      name="roleId"
+                      value={roleId}
+                      onChange={(e) => setRoleId(e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>
+              </Form.Group>
+            </Row>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" type="submit" onClick={handleSubmit}>
+            SUBMIT
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+
+  
