@@ -12,6 +12,7 @@ const RegisterEmployee = ({ getAllEmployees , setShowRegisterModal}) => {
 
   const [EmpId, setEmpId] = useState("");
   const [empName, setEmpName] = useState("");
+  const [password, setPassword] = useState("");
   const [tagId, setTagId] = useState("");
   const [roleId, setRoleId] = useState("");
   let SelectEmployeeRole = [
@@ -47,6 +48,7 @@ const RegisterEmployee = ({ getAllEmployees , setShowRegisterModal}) => {
       name: empName,
       tag_id: Number(tagId),
       role_id: Number(roleId),
+      password
     };
     console.log(payload);
     fetch(registerEmployeeURL, {
@@ -105,6 +107,24 @@ const RegisterEmployee = ({ getAllEmployees , setShowRegisterModal}) => {
           />
         </div>
       </div>
+
+      
+      <div className="mb-3 ms-6">
+        <Form.Label>
+          <b>EMPLOYEE PASSWORD</b>
+        </Form.Label>
+        <div className="mb-3 ">
+          <Form.Control
+            type="password"
+            placeholder="Enter password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+      </div>
+
       <div className="mb-3 ms-6">
         <Form.Label>
           <b>EMPLOYEE TAG ID</b>
