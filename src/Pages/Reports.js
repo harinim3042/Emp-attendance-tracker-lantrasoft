@@ -83,7 +83,7 @@ export default function Reports() {
               </Row>
             </Form>
           </div>
-          <Table responsive hover variant="dark" className="py-5 pe-5 ps-5">
+          <Table responsive className="py-5 pe-5 ps-5">
             <thead>
               <tr>
                 <th>#</th>

@@ -120,13 +120,13 @@ const Reports = () => {
 
           {
             <div className="chart-align container-fluid mt-2 mb-7 ">
-              <div className="chart-bg donut px-9 mx-4 py-5 mb-2 ">
+              <div className="chart-bg donut px-5 mx-4 py-5 mb-2 ">
                 <DoughnutChart empId={EmpId} />
               </div>
               <div className="chart-bg line px-6 mx-3 py-6 mb-2 ">
                 <LineChart empId={EmpId} />
               </div>
-              <div className="chart-bg bar px-8 py-6 my-4 ">
+              <div className="chart-bg bar px-7 py-6 my-4 ">
                 <BarChart empId={EmpId} />
               </div>
             </div>
@@ -135,7 +135,7 @@ const Reports = () => {
           <Table
             responsive="true"
             hover
-            variant="dark"
+            
             className="py-5 pe-5 ps-5"
           >
             <thead>

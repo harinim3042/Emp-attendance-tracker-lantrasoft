@@ -26,7 +26,7 @@ function NavBar() {
   let Logout = [
     {
       menu: '1',
-      label: 'HR Dashboard',
+      label: 'HR DASBOARD ',
       route: '/HRDashboard',
       role: ['HR'],
     },

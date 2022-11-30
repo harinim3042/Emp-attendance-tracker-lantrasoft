@@ -17,10 +17,6 @@ origins = [
     "http://localhost:3000"
 ]
 
-table_name1="employee"
-table_name2="login_credentials"
-
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -51,6 +47,7 @@ async def shutdown():
 
 
 
+table_name1="employee"
 
 class ErrorResponse:
     status = False 
@@ -59,7 +56,6 @@ class ErrorResponse:
 class employee(BaseModel):
     emp_id:int = Field(..., example=1001)
     name: str = Field(..., example="Manjot Singh")
-    password: str = Field(..., example="Manjot Singh")
     tag_id: int = Field(..., example=200)
     role_id : int = Field(..., example=2)
 class Update_Employee_Data(BaseModel):
@@ -91,17 +87,13 @@ async def getEmployeeByID(EmpId: int):
     cur.execute(f'SELECT * FROM "{table_name1}" where "emp_id"={EmpId}')
     return get_data_as_json(cur.fetchall())
 
-@app.post('/registerEmployee')
+@app.post('/registerEmployee', response_model = List[employee])
 async def register_employee(employee : employee):
     print(employee)
 
     try:
         cur.execute(f'INSERT INTO "{table_name1}"("emp_id", "name", "tag_id", "role_id") VALUES(%s, %s, %s, %s)', 
         (employee.emp_id, employee.name, employee.tag_id, employee.role_id))
-        conn.commit()
-        
-        cur.execute(f'INSERT INTO "{table_name2}"("emp_id", "password") VALUES(%s, %s)', 
-        (employee.emp_id, employee.password))
         conn.commit()
     except psycopg2.errors.UniqueViolation as e:
         # return {
@@ -110,8 +102,9 @@ async def register_employee(employee : employee):
         # }
         print(e)
         raise HTTPException(status_code=500, detail="Employee ID Already Exists")
+        
 
-    # return await getEmployeeByID(employee.emp_id)
+    return await getEmployeeByID(employee.emp_id)
     
 @app.put('/updateEmployeeData', response_model = List[employee])
 async def update_employee_data(EmpId: int, data_changed : Update_Employee_Data):
@@ -124,6 +117,9 @@ async def update_employee_data(EmpId: int, data_changed : Update_Employee_Data):
 @app.delete('/employeeDelete/{EmpId}')
 def delete_employee(EmpId: int):
     # data = getEmployeeByID(id)
+    cur.execute(f'DELETE FROM "{table_name2}" WHERE "emp_id" = %s', (EmpId,))
+    conn.commit()
+
     cur.execute(f'DELETE FROM "{table_name1}" WHERE "emp_id" = %s', (EmpId,))
     conn.commit()
     return "Employee with " + str(EmpId) + " is deleted"    
@@ -275,6 +271,7 @@ def delete_employee(EmpId: int):
 
 
 
+table_name2="login_credentials"
 class login(BaseModel):
     emp_id:int = Field(..., example=102)
     password:str = Field(..., example='emp102')

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../style.css";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import "../style.css";
+
 
 const RegisterEmployee = ({ getAllEmployees , setShowRegisterModal}) => {
 

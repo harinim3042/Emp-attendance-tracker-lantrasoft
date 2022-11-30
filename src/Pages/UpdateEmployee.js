@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../style.css";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import "../style.css";
+
 // const EmpId = 1500;
 const UpdateEmployee = ({ employee,  getAllEmployees ,setShowEditModal }) => {
   const updateEmployeeDataURL =
@@ -115,7 +115,7 @@ const UpdateEmployee = ({ employee,  getAllEmployees ,setShowEditModal }) => {
             type="number"
             placeholder="Enter Employee Tag Id"
             name="tagId"
-            value={employee.tag_id}
+            defaultValue={employee.tag_id}
             onChange={(e) => setTagId(e.target.value)}
             required
           />

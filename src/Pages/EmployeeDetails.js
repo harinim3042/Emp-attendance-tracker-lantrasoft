@@ -87,21 +87,13 @@ export default function EmployeeDetails() {
         </Modal.Body>
       </Modal>
       <div className="px-5 pt-2">
-        <Table striped variant="dark" className="py-5 pe-5 ps-5 ">
-          <colgroup>
-            <col width="10%"/>
-            <col width="10%"/>
-            <col width="20%"/>
-            <col width="20%"/>
-            <col width="20%"/>
-            <col width="20%"/>
-          </colgroup>
+        <Table responsive striped variant="dark" className="py-5 pe-5 ps-5 ">
           <thead>
             <tr>
               <th>#</th>
               <th>EMPLOYEE ID</th>
-              <th>EMPLOYEE TAG ID</th>
               <th>EMPLOYEE NAME</th>
+              <th>EMPLOYEE TAG ID</th>
               <th>EMPLOYEE POSITION</th>
               <th> ACTIONS </th>
             </tr>
@@ -112,8 +104,8 @@ export default function EmployeeDetails() {
                 <tr key={x.emp_id}>
                   <td>{i + 1}</td>
                   <td>{x.emp_id}</td>
-                  <td> {x.tag_id} </td>
                   <td>{x.name}</td>
+                  <td> {x.tag_id} </td>
                   <td> {x.role} </td>
 
                   <td>
