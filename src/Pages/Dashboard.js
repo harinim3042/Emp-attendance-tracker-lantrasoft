@@ -15,13 +15,13 @@ export default function Dashboard() {
       <h1 className="form-center white-font pt-5">MY DASHBOARD</h1>
       <div className=" text-align-right white-font mt-n10 me-3">< ClockTime /></div>
       <div className="chart-align container-fluid mt-2 mb-7 ">
-        <div className="chart-bg donut px-9 mx-4 py-5 mb-2 ">
+        <div className="chart-bg donut px-5 mx-4 py-5 mb-2 ">
           <DoughnutChart />
         </div>
         <div className="chart-bg line px-6 mx-3 py-6 mb-2 ">
           <LineChart />
         </div>
-        <div className="chart-bg bar px-8 py-6 my-4 ">
+        <div className="chart-bg bar px-7 py-6 my-4 ">
           <BarChart />
         </div>
       </div>

@@ -48,7 +48,7 @@ export default function Login() {
           alert(data.message);
         } else {
           setIsLoginSuccessful(true);
-          alert("Login Successful");
+          // alert("Login Successful");
           localStorage.setItem("userData", JSON.stringify(data));
         }
       })

@@ -8,47 +8,78 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import SideBarNavigation from "../Components/Navbar.js";
 
+
 const userData = JSON.parse(localStorage.getItem("userData"));
-const empId = userData["emp_id"];
-// const empId = 101;
-export default function Reports() {
+//
+const Reports = () => {
   const [item, setItem] = useState([]);
+  const [SelectEmployeeID, setSelectEmployeeID] = useState([]);
+
   const [SelectFloor, setSelectFloor] = useState("All");
-  const [SelectDate, setSelectDate] = useState([]);
+  const [SelectDate, setSelectDate] = useState();
+  const [tempSelectDate, setTempSelectDate] = useState();
+
+  const [EmpId, setEmpId] = useState(userData["emp_id"]);
+  const [tempEmpId, setTempEmpId] = useState(userData["emp_id"]);
 
   // 2 useState - floor, date
 
-  React.useEffect(() => {}, [empId]);
   const handleSubmit = (event) => {
     //Prevent page reload
     event.preventDefault();
-
+    setEmpId(tempEmpId);
+    setSelectDate(tempSelectDate);
     //console.log(payload);
+  };
+
+  React.useEffect(() => {
     let baseURL =
       "http://127.0.0.1:8000/getAllAnalyticsByFloor?EmpId=" +
-      empId +
+      EmpId +
       "&date=" +
       SelectDate;
 
     if (SelectFloor.toLowerCase() !== "all") {
       baseURL += "&floor=" + SelectFloor;
     }
-
     fetch(baseURL)
       .then((res) => res.json())
       .then((res) => setItem(res))
       .catch((err) => console.log(err));
-  };
+      let empURL = "http://127.0.0.1:8000/getAllEmployees";
+
+      fetch(empURL)
+        .then((res) => res.json())
+        .then((res) => setSelectEmployeeID(res))
+        .catch((err) => console.log(err));
+  }, [EmpId, SelectDate, SelectFloor]);
+
   const renderTable = (
     <>
       <SideBarNavigation />
       <div>
-        <h1 className="form-center white-font pt-5">EMPLOYEE LOGS</h1>
-        <div className="px-5 pt-2 ">
-          <div className=" white-font text-align-left ">
-            <Form onSubmit={handleSubmit}>
+        <h1 className="form-center white-font pt-5">EMPLOYEE DAY WISE LOG</h1>
+
+        <div className="px-5 pt-2 mx-13 mb-5">
+          <div className=" white-font ">
+            <Form onSubmit={handleSubmit} className=" ms-5 ">
               <Row className="mb-3 ">
                 <Col sm={4}>
+                  <Form.Group controlId="Employee">
+                    <Form.Label>Select Employee</Form.Label>
+                    <Form.Select
+                      name="SelectEmployee"
+                      onChange={(e) => setTempEmpId(e.target.value.slice(0,3))}
+                    >
+                      <option>Select Employee</option>
+
+                      {SelectEmployeeID.map((x) => (
+                        <option key={x.emp_id}>{x.emp_id} - {x.name}</option>
+                      ))}
+                    </Form.Select>
+                  </Form.Group>
+                </Col>
+                <Col sm={3}>
                   <Form.Group controlId="Floor">
                     <Form.Label>Select Floor</Form.Label>
                     <Form.Select
@@ -63,14 +94,14 @@ export default function Reports() {
                     </Form.Select>
                   </Form.Group>
                 </Col>
-                <Col sm={5}>
+                <Col sm={3}>
                   <Form.Group controlId="Date">
                     <Form.Label>Select Date</Form.Label>
                     <Form.Control
                       type="date"
                       name="SelectDate"
                       value={SelectDate}
-                      onChange={(e) => setSelectDate(e.target.value)}
+                      onChange={(e) => setTempSelectDate(e.target.value)}
                       required
                     />
                   </Form.Group>
@@ -83,7 +114,13 @@ export default function Reports() {
               </Row>
             </Form>
           </div>
-          <Table responsive className="py-5 pe-5 ps-5">
+
+          <Table
+            responsive="true"
+            hover
+            
+            className="py-5 pe-5 ps-5"
+          >
             <thead>
               <tr>
                 <th>#</th>
@@ -99,7 +136,6 @@ export default function Reports() {
                 item.map((x) => (
                   <tr key={x.Sno}>
                     <td>{x.Sno}</td>
-
                     <td>{x.Floor}</td>
                     <td>{x.InTime}</td>
                     <td>{x.OutTime}</td>
@@ -108,7 +144,7 @@ export default function Reports() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="5" style={{textAlign: 'center'}}>
+                  <td colSpan="5" style={{ textAlign: "center" }}>
                     NO RECORD
                   </td>
                 </tr>
@@ -120,4 +156,6 @@ export default function Reports() {
     </>
   );
   return <div>{renderTable}</div>;
-}
+};
+
+export default Reports;

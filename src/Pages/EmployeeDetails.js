@@ -63,7 +63,7 @@ export default function EmployeeDetails() {
   return (
     <>
       <SideBarNavigation />
-      <h1 className="form-center  ">EMPLOYEE DETAILS</h1>
+      <h1 className="form-center  ">EMPLOYEE LIST</h1>
       <div className="text-align-right me-12 ">
         <Button variant="primary" onClick={() => setShowRegisterModal(true)}>
           REGISTER EMPLOYEE

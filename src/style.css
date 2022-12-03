@@ -438,6 +438,9 @@
 .ms-7 {
   margin-left: 3rem !important;
 }
+.ms-7_5 {
+  margin-left: 3.25rem !important;
+}
 
 .ms-8 {
   margin-left: 3.5rem !important;
@@ -1285,6 +1288,7 @@
   padding-left: 7.5rem !important;
 }
 
+
 .body-login-bg {
   background: #667db6;
   /* fallback for old browsers */
@@ -1494,6 +1498,12 @@ background-color: #ffffff;
   text-align: left;
    flex-direction: row-reverse;
 }
+.text-align-center{
+  display: flex;
+  text-align: center;
+   flex-direction: row;
+   align-items: center;
+}
 .nav{
 display: flex;
 flex-wrap: wrap;
@@ -1510,4 +1520,8 @@ box-shadow: 0px 2px 6px;
 }
 .table>:not(:last-child)>:last-child>* {
   border-bottom-color: #ffffff;
+}
+#profile :last-child {
+  border-color: #c9d6ff;
+  box-shadow: 0px 0px 0px !important;
 }

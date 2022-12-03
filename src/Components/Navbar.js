@@ -17,6 +17,12 @@ function NavBar() {
       route: '/Reports',
       // role: ['Associate'],
     },
+    {
+      menu: '3',
+      label: 'PROFILE PAGE',
+      route: '/ProfilePage',
+      // role: ['Senior Associate','Associate','Senior Analyst','Analyst','HR'],
+    },
   ];
   const userData = JSON.parse(localStorage.getItem("userData"));
   const user_Name = userData['name'];
@@ -30,37 +36,48 @@ function NavBar() {
       route: '/HRDashboard',
       role: ['HR'],
     },
-    // {
-    //   menu: '2',
-    //   label: 'LEAVE APPLICATION',
-    //   route: '/LeaveApplication',
-    //   role: ['Senior Associate','Associate','Senior Analyst','Analyst'],
-    // },
-    // {
-    //   menu: '3',
-    //   label: 'LEAVE STATUS',
-    //   route: '/LeaveStatus',
-    //   role: ['Senior Associate','Associate','Senior Analyst','Analyst'],
-    // },
-    // {
-    //   menu: '4',
-    //   label: 'LEAVE APPROVAL',
-    //   route: '/LeaveApproval',
-    //   role: ['HR'],
-    // },
+    {
+      menu: '2',
+      label: 'LEAVE APPLICATION',
+      route: '/LeaveApplication',
+      role: ['Senior Associate','Associate','Senior Analyst','Analyst'],
+    },
+    {
+      menu: '3',
+      label: 'LEAVE STATUS',
+      route: '/LeaveStatus',
+      role: ['Senior Associate','Associate','Senior Analyst','Analyst'],
+    },
+    {
+      menu: '4',
+      label: 'LEAVE APPROVAL',
+      route: '/LeaveApproval',
+      role: ['HR'],
+    },
     {
       menu: '5',
-      label: 'EMPLOYEE DETAILS',
+      label: 'EMPLOYEE LIST',
       route: '/EmployeeDetails',
       role: ['HR'],
     },
     {
       menu: '6',
+      label: 'EMPLOYEE LEAVE LOG',
+      route: '/AllLeaveList',
+      role: ['HR'],
+    },
+    {
+      menu: '7',
+      label: 'EMPLOYEE DAY WISE LOG',
+      route: '/DayWiseLog',
+      role: ['HR'],
+    },
+    {
+      menu: '8',
       label: 'LOGOUT',
       route: '/',
       role: ['Senior Associate','Associate','Senior Analyst','Analyst','HR'],
     },
- 
   ];
 
   Logout = Logout.filter((m) => m.role.includes(userRole));

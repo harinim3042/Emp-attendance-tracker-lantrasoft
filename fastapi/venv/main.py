@@ -278,12 +278,12 @@ class login(BaseModel):
 def get_data_as_json2(lt):
     temp={}
     for row in lt:
-        temp = { 'emp_id' : row[0], 'name': row[1], 'role': row[2] }
+        temp = { 'emp_id' : row[0], 'name': row[1], 'role': row[2], 'tag_id': row[3], }
     return temp
 
 @app.post('/login')
 async def validate_login(login_val:login):
-    cur.execute(f'SELECT emp_id,name,role from (SELECT emp_id,name,role_id,password from "{table_name2}" natural join "employee") as X natural join "employee_role" where emp_id={login_val.emp_id} and password=\'{login_val.password}\'')
+    cur.execute(f'SELECT emp_id,name,role,tag_id from (SELECT emp_id,name,role_id,tag_id,password from "{table_name2}" natural join "employee") as X natural join "employee_role" where emp_id={login_val.emp_id} and password=\'{login_val.password}\'')
     res=cur.fetchall()
     data=list(res)
     if len(data)==0:
@@ -668,3 +668,119 @@ def get_data_as_json3(lt):
 async def employees_role():
     cur.execute(f'SELECT * FROM "{table_name4}"')
     return get_data_as_json3(cur.fetchall())
+
+
+
+leave_table_name="leave"
+leave_type="leave_type"
+leave_category="leave_category"
+leave_status="leave_status"
+class Leave_list(BaseModel):
+    leave_id:int = Field(..., example=1001)
+    emp_id: int = Field(..., example=1002)
+    name: str = Field(..., example="Manjot Singh")
+    role: str = Field(..., example="Manjot Singh")
+    applied_on_date: date =Field(...,example=2002-10-11)
+    leave_type_id: int = Field(..., example=1002)
+    leave_type: str = Field(..., example="Manjot Singh")
+    leave_category_id: int  = Field(..., example=0)
+    leave_category: str = Field(..., example="Manjot Singh")
+    from_date : date=Field(...,example=2002-10-10)
+    to_date : date =Field(...,example=2002-10-11)
+    reason: str = Field(..., example="Manjot Singh")
+    leave_status_id: int = Field(..., example=1002)
+    leave_status: str = Field(..., example="Manjot Singh")
+    verified_by: str = Field(..., example="Manjot Singh")
+    verified_on : date =Field(...,example=2002-10-11)
+
+class Leave_apply_list(BaseModel):
+    # leave_id:int = Field(..., example=1001)
+    emp_id: int = Field(..., example=1002)
+    applied_on_date: date =Field(...,example=2002-10-11)
+    leave_type_id: int = Field(..., example=1002)
+    leave_category_id: int  = Field(..., example=0)
+    from_date : date=Field(...,example="2002-10-10")
+    to_date : date =Field(...,example=2002-10-11)
+    reason: str = Field(..., example="Manjot Singh")
+    # leave_status_id: int = Field(..., example=1002)
+
+class Update_leave_Data(BaseModel):
+    leave_status_id: int = Field(..., example=1002)
+    verified_by: str = Field(..., example="Manjot Singh")
+    verified_on : date =Field(...,example=2002-10-11)
+
+def get_data_as_json(lt):
+    ans = []
+    for row in lt:
+        temp = { 'leave_id' : row[0], 'emp_id': row[1], 'applied_on_date': row[2], 'leave_type_id': row[17],'leave_category_id': row[19],'from_date' : row[5], 'to_date': row[6], 'reason': row[7], 'leave_status_id': row[8],'verified_by': row[9],'verified_on' : row[10],'leave_type':row[18],'leave_category':row[20],'leave_status':row[22],'role':row[16],'name':row[12]}
+        ans.append(temp)
+        # print (row)
+    return ans
+
+def get_data_as_json_applyLeave(lt):
+    ans = []
+    for row in lt:
+        temp = { 'leave_id' : row[0], 'emp_id': row[1], 'applied_on_date': row[2], 'leave_type_id': row[3],'leave_category_id': row[4],'from_date' : row[5], 'to_date': row[6], 'reason': row[7]}
+        ans.append(temp)
+    return ans
+     
+    
+@app.get('/getAllLeaves', response_model = List[Leave_list])
+async def all_leaves():
+    cur.execute(f'SELECT * FROM "{leave_table_name}" inner join "{table_name1}" on "{leave_table_name}"."emp_id" = "{table_name1}"."emp_id" inner join "{table_name4}" on "{table_name1}"."role_id" = "{table_name4}"."role_id" inner join "{leave_type}" on "{leave_table_name}"."leave_type_id" = "{leave_type}"."leave_type_id" inner join "{leave_category}" on "{leave_table_name}"."leave_category_id" = "{leave_category}"."leave_category_id" inner join "{leave_status}" on "{leave_table_name}"."leave_status_id" = "{leave_status}"."leave_status_id"')
+    
+    # print( get_data_as_json(cur.fetchall()))
+    return get_data_as_json(cur.fetchall())
+
+
+@app.post('/applyLeave', response_model = List[Leave_apply_list])
+async def apply_leave(entry : Leave_apply_list):
+    print(entry)
+    try:
+         cur.execute(f'INSERT INTO "{leave_table_name}" ("emp_id", "applied_on_date", "leave_type_id", "leave_category_id","from_date","to_date","reason") VALUES(%s, %s, %s, %s, %s, %s, %s)', 
+         (entry.emp_id, entry.applied_on_date, entry.leave_type_id, entry.leave_category_id, entry.from_date, entry.to_date, entry.reason))
+           
+         conn.commit()
+         cur.execute(f'Select ("leave_id","emp_id", "applied_on_date", "leave_type_id", "leave_category_id","from_date","to_date","reason") from "{leave_table_name}"')
+    except psycopg2.errors.UniqueViolation as e:
+       
+        print(e)
+
+    return get_data_as_json_applyLeave(cur.fetchall())
+
+@app.get('/getLeaveByID', response_model = List[Leave_list])
+async def get_leave_by_id(leave_id: int):
+    cur.execute(f'SELECT * FROM "{leave_table_name}" where "leave_id"={leave_id} inner join "{table_name4}" on "{table_name1}"."role_id" = "{table_name4}"."role_id" inner join "{leave_type}" on "{leave_table_name}"."leave_type_id" = "{leave_type}"."leave_type_id" inner join "{leave_category}" on "{leave_table_name}"."leave_category_id" = "{leave_category}"."leave_category_id" inner join "{leave_status}" on "{leave_table_name}"."leave_status_id" = "{leave_status}"."leave_status_id"')
+    return get_data_as_json(cur.fetchall())
+
+@app.put('/updateLeaveData', response_model = List[Leave_list])
+async def update_leave_data(leave_id: int, leave_changed : Update_leave_Data):
+    cur.execute(f'UPDATE "{leave_table_name}" SET "leave_status_id"=%s, "verified_by"=%s, "verified_on"=%s WHERE "leave_id" = %s', 
+    (leave_changed.leave_status_id ,leave_changed.verified_by, leave_changed.verified_on,  leave_id))
+    conn.commit()
+
+    return await get_leave_by_id(leave_id)
+
+@app.get('/getApprovedLeave', response_model = List[Leave_list])
+async def get_approved_leave( emp_id: Union[int, None]=None):
+    if emp_id:
+     cur.execute(f'SELECT * FROM "{leave_table_name}"  inner join "{leave_type}" on "{leave_table_name}"."leave_type_id" = "{leave_type}"."leave_type_id" inner join "{leave_category}" on "{leave_table_name}"."leave_category_id" = "{leave_category}"."leave_category_id" inner join "{leave_status}" on "{leave_table_name}"."leave_status_id" = "{leave_status}"."leave_status_id" where "{leave_table_name}"."leave_status_id"=2 and emp_id={emp_id}')
+    else:
+     cur.execute(f'SELECT * FROM "{leave_table_name}" inner join "{leave_type}" on "{leave_table_name}"."leave_type_id" = "{leave_type}"."leave_type_id" inner join "{leave_category}" on "{leave_table_name}"."leave_category_id" = "{leave_category}"."leave_category_id" inner join "{leave_status}" on "{leave_table_name}"."leave_status_id" = "{leave_status}"."leave_status_id" where "{leave_table_name}"."leave_status_id"=2 ')
+    return get_data_as_json(cur.fetchall())
+
+@app.get('/getRejectedLeave', response_model = List[Leave_list])
+async def get_rejected_leave(emp_id: Union[int, None]=None):
+    if emp_id:
+     cur.execute(f'SELECT * FROM "{leave_table_name}" inner join "{leave_type}" on "{leave_table_name}"."leave_type_id" = "{leave_type}"."leave_type_id" inner join "{leave_category}" on "{leave_table_name}"."leave_category_id" = "{leave_category}"."leave_category_id" inner join "{leave_status}" on "{leave_table_name}"."leave_status_id" = "{leave_status}"."leave_status_id"  where "{leave_table_name}"."leave_status_id"=3 and emp_id={emp_id} ')
+    else:
+     cur.execute(f'SELECT * FROM "{leave_table_name}" inner join "{leave_type}" on "{leave_table_name}"."leave_type_id" = "{leave_type}"."leave_type_id" inner join "{leave_category}" on "{leave_table_name}"."leave_category_id" = "{leave_category}"."leave_category_id" inner join "{leave_status}" on "{leave_table_name}"."leave_status_id" = "{leave_status}"."leave_status_id" where "{leave_table_name}"."leave_status_id"=3')
+    return get_data_as_json(cur.fetchall())
+
+@app.get('/getWaitingListLeave', response_model = List[Leave_list])
+async def get_waiting_list_leave(emp_id: Union[int, None]=None):
+    if emp_id:
+     cur.execute(f'SELECT * FROM "{leave_table_name}" inner join "{table_name1}" on "{leave_table_name}"."emp_id" = "{table_name1}"."emp_id" inner join "{table_name4}" on "{table_name1}"."role_id" = "{table_name4}"."role_id" inner join "{leave_type}" on "{leave_table_name}"."leave_type_id" = "{leave_type}"."leave_type_id" inner join "{leave_category}" on "{leave_table_name}"."leave_category_id" = "{leave_category}"."leave_category_id" inner join "{leave_status}" on "{leave_table_name}"."leave_status_id" = "{leave_status}"."leave_status_id" where "{leave_table_name}"."leave_status_id"=1 and "{table_name1}"."emp_id"={emp_id}')
+    else:
+     cur.execute(f'SELECT * FROM "{leave_table_name}" inner join "{table_name1}" on "{leave_table_name}"."emp_id" = "{table_name1}"."emp_id" inner join "{table_name4}" on "{table_name1}"."role_id" = "{table_name4}"."role_id" inner join "{leave_type}" on "{leave_table_name}"."leave_type_id" = "{leave_type}"."leave_type_id" inner join "{leave_category}" on "{leave_table_name}"."leave_category_id" = "{leave_category}"."leave_category_id" inner join "{leave_status}" on "{leave_table_name}"."leave_status_id" = "{leave_status}"."leave_status_id" where "{leave_table_name}"."leave_status_id"=1')
+    return get_data_as_json(cur.fetchall())
